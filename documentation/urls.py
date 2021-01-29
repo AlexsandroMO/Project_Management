@@ -1,10 +1,34 @@
+
 from django.urls import path
-from .views import hello, home
+from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    
-    path('', home, name='home-home'),
-    path('hello/', hello, name='hello'),
-    
+    path('hello/', views.hello),
+    path('', views.index, name='index'),
+    path('index2/<int:id>', views.index2, name='index-2'),
+    path('datatable/', views.dataTable, name='data-table'),
+    path('projects/', views.projectlist, name='project-list'),
+    #path('typeDocuments/', views.docummentypelist, name='documment-type-list'),
+    path('typeDocuments/<int:id>', views.docummentypelist, name='documment-type-list'),
+    path('Subject/', views.Subjectlist, name='subject-list'),
+    path('action/', views.Actionlist, name='action-list'),
+    path('status/', views.Statuslist, name='status-list'),
+    path('employee/', views.Employeelist, name='employee-list'),
+    path('cotation/<int:id>', views.Cotationlist, name='cotation-list'),
+    path('cotationFilter/', views.Cotationlist_filter, name='cotation-list-filter'),
+    path('edite_cotation/<int:id>', views.EditeCotation, name='edite-cota'),
+    path('LD_Proj/', views.LD_Proj, name='ld-projeto'),
+    path('CreatePL/', views.Create_PL, name='Create-PL'),
+    path('CreateCota/', views.Create_Cotation, name='Create-cota'),
+    path('PageT/', views.Pagetypelist, name='page-t'),
+    path('DocT/', views.Doctypelist, name='doc-t'),
+    path('createLD/', views.Create_LD, name='create-LD'),
+    path('CalcCota/', views.Calc_Cota, name='calc-cota'),
+    path('upload/', views.Uploadlists, name='upload-list'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+#pip3 install django-crispy-forms

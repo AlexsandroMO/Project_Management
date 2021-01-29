@@ -1,7 +1,9 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %} 
 
-{% block main %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
 
 <div class="row">
     <div class="col-md-4 offset-md-4">
@@ -22,5 +24,3 @@
     </div>
 </div>
 
-
-{%endblock %}

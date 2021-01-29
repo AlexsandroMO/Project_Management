@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Disciplinas{% endblock %}
+{% block content %}
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Disciplinas de Projetos</h3>
+            </div>
+
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example2" class="table table-bordered table-striped dataTable dtr-inline">
+                <thead>
+                  <tr>
+                    <th id="col-id">
+                      <div class="input-group-prepend">
+                        <!-- <span class="input-group-text"> -->
+                          <input class="marcar" type="checkbox" name="action" value="All"  onclick="marcarTodos(this.checked);">
+                        <!-- </span> -->
+                      </div>
+                    <div class="clear"></div>
+                    </th>
+                    <th id="col-dis">DISCIPLINA</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% csrf_token %}
+                  {% for sub in Subjects %}
+                  <tr>
+                    <td> 
+                      <div class="input-group-prepend">
+                        <!-- <span class="input-group-text"> -->
+                          <input class="marcar" type="checkbox" name="action" value="{{sub.id}}">
+                        <!-- </span> -->
+                      </div>
+                    </td> 
+                    <th class="field-proj_name nowrap"><a href="#">{{sub.subject_name}}</a></th>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+          </div>
+
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+
+
+                {% csrf_token %}
+                {% for sub in Subjects %}
+                <tr>
+                    <td class="action-checkbox"><input type="checkbox" name="action" value="{{doc.id}}" class="action-select" id="selected">
+                    <td class="field-project_name"><a href="#">{{sub.subject_name}}</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            <div class="row"><div class="col-sm-12 col-md-5">
+                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Mostrando {{ Subjects.number }} de {{ Subjects.paginator.num_pages }} Listas</div>
+            </div>
+            
+            <div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                <ul class="pagination">
+                    {% if MyProjects.has_previous %}
+                      <li class="paginate_button page-item previous" id="example1_previous"><a href="?page={{ Subjects.previous_page_number }}" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                      <li class="paginate_button page-item next disabled" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                      {% endif %}
+     
+                    {% if Subjects.has_next %}
+                      <li class="paginate_button page-item previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                      <li class="paginate_button page-item next" id="example1_next"><a href="?page={{ Subjects.next_page_number }}" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

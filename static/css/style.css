@@ -1,0 +1,145 @@
+
+
+.card-body{
+    padding-bottom: 30px;
+    padding-right: 30px;
+    table-layout:fixed;
+    max-width: 100%;
+    overflow: scroll;
+    padding-bottom: 5px;
+    border-right: 30px;
+    /* overflow: hidden; */
+
+}
+/* SORTABLE TABLES */
+
+th.column-price{
+    width:100px;
+}
+
+
+table{
+    border: 1px solid;
+    border-collapse: collapse;
+    padding: 0px;
+    height: 10px;
+    table-layout:fixed;
+    max-width: 100%;
+    overflow: scroll;
+    font-family: arial, sans-serif;
+}
+
+tr{
+    height: 8px;
+}
+
+/*Dimencionamento de Colunas*/
+
+#col-id{
+    width: 15px;
+}
+#col-name-proj{
+    width: 300px;
+}
+#col-disc{
+    width: 300px;
+}
+#col-doc-name{
+    width: 400px;
+}
+#col-cod{
+    width: 100px;
+}
+#col-ex-doc{
+    width: 100px;
+}
+#col-type-page{
+    width: 150px;
+}
+#col-qt{
+    width: 100px;
+}
+#col-page-coust{
+    width: 150px;
+}
+
+
+
+#col-name-doc{
+    width: 300px;
+}
+#col-company-name{
+    width: 300px;
+}
+#col-comment{
+    width: 600px;
+}
+
+
+#col-name-doc{
+    width: 300px;
+}
+#col-type-doc{
+    width: 200px;
+}
+#col-type-arq{
+    width: 200px;
+}
+#col-model-page{
+    width: 200px;
+}
+
+
+#col-di{
+    width: 300px; 
+}
+
+
+#id_doc_name{
+    width: 300px; 
+    height: 20px;
+}
+
+#id_qt_page{
+    width: 100px; 
+    height: 20px;
+}
+
+
+#id_qt_hh{
+    width: 100px; 
+    height: 20px;
+}
+
+
+#col1{
+    width: 250px; 
+}
+
+#col2{
+    width: 250px; 
+}
+#col3{
+    width: 350px; 
+}
+#col3{
+    width: 350px; 
+}
+#col5{
+    width: 150px; 
+}
+#col6{
+    width: 150px; 
+}
+
+
+#id_doc_name_pattern{
+    width: 300px;
+}
+
+
+
+
+    /* background: black; */
+    /* url(../static/dist/img/user8-128x128.jpg) 0 0 no-repeat; */
+    /* background-size: 14px auto; */

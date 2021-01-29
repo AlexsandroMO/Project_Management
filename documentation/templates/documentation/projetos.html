@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}Projetos{% endblock %}
+{% block content %}
+
+
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Projetos Cadastrados</h3>
+            </div>
+
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example2" class="table table-bordered table-striped dataTable dtr-inline">
+                <thead>
+                  <tr>
+                    <th id="col-id">
+                      <div class="input-group-prepend">
+                        <!-- <span class="input-group-text"> -->
+                          <input class="marcar" type="checkbox" name="action" value="All"  onclick="marcarTodos(this.checked);">
+                        <!-- </span> -->
+                      </div>
+                    <div class="clear"></div>
+                    </th>
+                    <th id="col-name-doc">NOME DO PROJETO</th>
+                    <th id="col-company-name">NOME DA EMPRESA</th>
+                    <th id="col-comment">COMENTÁRIOS</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% csrf_token %}
+                  {% for proj in MyProjects %}
+                  <tr>
+                    <td> 
+                      <div class="input-group-prepend">
+                        <!-- <span class="input-group-text"> -->
+                          <input class="marcar" type="checkbox" name="action" value="{{proj.id}}">
+                        <!-- </span> -->
+                      </div>
+                    </td> 
+                    <td class="field-proj_name nowrap"><a href="http://127.0.0.1:8000/index2/{{proj.id}}">{{proj.project_name}}</a></td>
+                    <td>{{proj.company}}</td>
+                    <td>{{proj.comments}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+          </div>
+
+   
+          <form action="{% url 'calc-cota' %}" method="GET"> 
+
+            <div class="card card-default collapsed-card">
+              <div class="card-header">
+                <h3 class="card-title">Selecionar Tipo de Cotação</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"> <!-- onclick="status_checkbox()"> -->
+                    <i class="fas fa-plus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- /.card-header -->
+              <div class="card-body" style="display: none;">
+                <div class="row">
+                  <div class="col-md-6" data-select2-id="29">
+                    <div class="form-group">
+
+              <div class="form-group clearfix" name="cota">
+                <div class="icheck-primary d-inline">
+                  <input type="checkbox" id="checkboxPrimary1" name="cota" value="1">
+                  <label for="checkboxPrimary1">
+                    Cotação por Qt Páginas
+                  </label>
+                </div>
+                <div class="icheck-primary d-inline">
+                  <input type="checkbox" id="checkboxPrimary2" name="cota" value="2">
+                  <label for="checkboxPrimary2">
+                    Cotação por HH
+                  </label>
+                </div>
+                <div class="icheck-primary d-inline">
+                  <input type="checkbox" id="checkboxPrimary3" name="cota" value="3"> <!-- disabled="">  checked="" -->
+                  <label for="checkboxPrimary3">
+                    Cotação por A1 Equivalente
+                    </label>
+                  </div>
+
+                  <button type="submit" class="btn btn-info">Cotar</button>
+
+                  <input type="checkbox" id="checkboxPrimary2" name="cota" value="x" checked="">
+
+              </div>
+
+                    </div>
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer" style="display: none;">
+                Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
+                the plugin.
+              </div>
+            </div>
+
+
+            </form>
+            </div>
+
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+
+
+{% endblock %}
