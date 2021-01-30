@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Cotação{% endblock %}
+{% block title %}LD{% endblock %}
 {% block content %}
 
   <!-- Main content -->
@@ -10,14 +10,13 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Cotação de Projetos</h3>
+              <h3 class="card-title">Lista de Documentos de Projetos</h3>
             </div>
-
-            <!-- /.card-header -->
-             
+            
             <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info"> <!-- class="table table-striped table-bordered" -->
-                <thead>
+            <table id="example1" class="table ls-table"  role="grid" aria-describedby="example1_info"> <!-- class="table table-striped table-bordered" -->
+              <!-- class="table table-bordered table-striped dataTable dtr-inline"    -->
+              <thead>
                   <tr>
                     <th id="col-id">
                       <div class="input-group-prepend">
@@ -36,7 +35,7 @@
                     <th id="col-qt">QT. FOLHA</th>
                     <th id="col-qt">QT. HH</th>
                     <th id="col-page-coust">CUSTO DOC.</th>
-                    <th></th>
+                    <th>-</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -51,13 +50,13 @@
                     <td>{{cota.proj_name}}</a></td>
                     <td>{{cota.subject_name}}</td>
                     <td class="field-proj_name nowrap"><a href="http://127.0.0.1:8000/edite_cotation/{{cota.id}}">{{cota.doc_name}}</a></td>
-                    <td>{{cota.cod_doc_type}}</td>
+                    <td >{{cota.cod_doc_type}}</td>
                     <td>{{cota.format_doc}}</td>
                     <td>{{cota.page_type}}</td>
                     <td>{{cota.qt_page}}</td>
                     <td>{{cota.qt_hh}}</td>
-                    <td>R$ {{cota.cost_doc}}</td>
-                    <td></td>
+                    <td id="num-convert">R$ {{cota.cost_doc}}</td>
+                    <td>-</td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -73,6 +72,7 @@
                   <th></th>
                   <th></th>
                   <th>R$ {{total}}</th>
+                  <th>-</th>
                 </tr>
                 </tfoot>
 
@@ -102,11 +102,17 @@
 
                   <form action="{% url 'cotation-list-filter' %}" method="GET">
                   <div class="form-group">
-
+                    <label>Projeto
+                    <select class="form-control select2 select2-hidden-accessible" name="proj">
+                      <option selected="selected" data-select2-id="3" value="0">Selecione Projeto</option>
+                        {% for proj in MyProjects %}
+                          <option value={{proj.id}}>{{proj.project_name}}</option>
+                        {% endfor%}
+                    </select></label>
 
                     <label>Disciplina
                     <select class="form-control select2 select2-hidden-accessible" name="sub">
-                      <option selected="selected" value="0">Selecione Disiciplina</option>
+                      <option selected="selected" data-select2-id="3" value="0">Selecione Disiciplina</option>
                         {% for sub in Subjects %}
                         <option value={{sub.id}}>{{sub.subject_name}}</option>
                         {% endfor%}
@@ -126,7 +132,7 @@
           </div>
 
               <div class="card-footer">
-                <button type="submit" class="btn btn-info">Sign in</button>
+                <button type="submit" class="btn btn-info">Start</button>
                 <button type="submit" class="btn btn-default float-right">Cancel</button>
               </div>
 
@@ -136,7 +142,8 @@
           </div>
         </div>
 
-        </div>
+            
+            </div>
  
       </div>
       <!-- /.row -->

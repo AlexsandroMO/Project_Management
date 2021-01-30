@@ -1,6 +1,6 @@
 
-
-.card-body{
+ 
+.card-table{
     padding-bottom: 30px;
     padding-right: 30px;
     table-layout:fixed;
@@ -9,31 +9,24 @@
     padding-bottom: 5px;
     border-right: 30px;
     /* overflow: hidden; */
+ }
 
-}
 /* SORTABLE TABLES */
 
-th.column-price{
-    width:100px;
-}
-
-
 table{
-    border: 1px solid;
+    border: 0px solid rgb(31, 28, 28);
     border-collapse: collapse;
-    padding: 0px;
-    height: 10px;
+    padding:0px;
+    height: 1px;
     table-layout:fixed;
     max-width: 100%;
     overflow: scroll;
     font-family: arial, sans-serif;
-}
-
-tr{
-    height: 8px;
+    
 }
 
 /*Dimencionamento de Colunas*/
+
 
 #col-id{
     width: 15px;
@@ -48,19 +41,19 @@ tr{
     width: 400px;
 }
 #col-cod{
-    width: 100px;
+    width: 150px;
 }
 #col-ex-doc{
-    width: 100px;
+    width: 250px;
 }
 #col-type-page{
     width: 150px;
 }
 #col-qt{
-    width: 100px;
+    width: 120px;
 }
 #col-page-coust{
-    width: 150px;
+    width: 200px;
 }
 
 

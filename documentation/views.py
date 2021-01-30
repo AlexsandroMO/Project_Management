@@ -393,26 +393,30 @@ def Create_Cotation(request):
 def Create_LD(request):
 
     DocumentStandards = DocumentStandard.objects.all()
-    print('>>>>>>>>>>>>>>>>>>>',dict(request.GET))
 
-    if len(dict(request.GET)) == 3 and dict(request.GET)['proj'][0] != '0' and dict(request.GET)['sub'][0] != '0':
+    GET = dict(request.GET)
+    print('>>>>>>>>>>>>>>>>>>>',GET)
+
+    #if len(dict(request.GET)) == 3 and dict(request.GET)['proj'][0] != '0' and dict(request.GET)['sub'][0] != '0':
         
-        GET = dict(request.GET)
+        
 
-        if dict(request.GET)['action'][0] == 'All':
-            LDcreate.cria_orc_all(GET,DocumentStandards)
+    # if dict(request.GET)['action'][0] == 'All':
+    #         #LDcreate.cria_orc_all(GET,DocumentStandards)
+    #         pass
 
-            return redirect('ld-projeto')
+    #         return redirect('ld-projeto')
 
-        elif dict(request.GET)['action'][0] != 'All':
+    #     elif dict(request.GET)['action'][0] != 'All':
             
-            #LDcreate.cria_orc_ind(GET)
+    #         #LDcreate.cria_orc_ind(GET)
 
-            return redirect('ld-projeto')
+    #         return redirect('ld-projeto')
 
 
-    else:
-        return redirect('edite-cota')
+    # else:
+    
+    return redirect('/')
 
 
 
