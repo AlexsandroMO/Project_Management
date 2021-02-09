@@ -32,3 +32,4 @@ urlpatterns = [
 
 
 #pip3 install django-crispy-forms
+

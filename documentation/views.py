@@ -208,15 +208,25 @@ def Uploadlists(request):
 #---------------------------------------------------------------
 def Cotationlist(request, id):
 
-    print('>>>>: ', id)
+    proj = id
 
     Cotations = Cotation.objects.filter(proj_name__id=id)#.order_by('-subject_name')
     MyProjects = MyProject.objects.filter(id=id)
-
-    #MyProjects = MyProject.objects.all().order_by('project_name')
-    Subjects = Subject.objects.all().order_by('subject_name')
+    Subjects = Subject.objects.all()
     DocumentStandards = DocumentStandard.objects.all()
     Employees = Employee.objects.all().order_by('-emp_name')
+
+    lista = []
+    for a in Cotations:
+        lista.append(int(a.subject_name_id))
+
+    lista = sorted(set(lista))
+    subject_list = []
+
+    for i in Subjects:
+        for j in lista:
+            if j == i.id:
+                subject_list.append([i.subject_name, i.id])
 
     #----------------------
     calc = []
@@ -242,15 +252,14 @@ def Cotationlist(request, id):
             
     #----------------------
 
-    return render(request, 'documentation/cotation.html', {'Cotations':Cotations, 'DocumentStandards':DocumentStandards, 'MyProjects':MyProjects, 'Subjects':Subjects, 'total':total, 'colaborador':colaborador, 'photo_colab':photo_colab})
-
+    return render(request, 'documentation/cotation.html', {'Cotations':Cotations, 'DocumentStandards':DocumentStandards, 'MyProjects':MyProjects, 'Subjects':Subjects, 'total':total, 'colaborador':colaborador, 'photo_colab':photo_colab, 'subject_list':subject_list, 'proj':proj})
 
 
 #@login_required
 def Cotationlist_filter(request):
 
     MyProjects = MyProject.objects.all().order_by('project_name')
-    Subjects = Subject.objects.all().order_by('subject_name')
+    
     Cotations = Cotation.objects.all().order_by('subject_name').order_by('doc_name').order_by('proj_name')
     DocumentStandards = DocumentStandard.objects.all()
     Employees = Employee.objects.all().order_by('-emp_name')
@@ -261,9 +270,16 @@ def Cotationlist_filter(request):
 
     if dict(request.GET)['sub'][0] != '0':
         sub = int(GET['sub'][0])
+        proj = int(GET['proj'][0])
+        Subjects = Subject.objects.all().order_by('subject_name')
+        Cotations = Cotations.filter(proj_name__id=proj)
         Cotations = Cotations.filter(subject_name__id=sub)
+        Subjects = Subjects.filter(id=sub)
 
         #----------------------
+        ids = [sub, proj]
+        #----------------------
+
         calc = []
         for i in Cotations:
             calc.append(i.cost_doc)
@@ -289,7 +305,7 @@ def Cotationlist_filter(request):
     else:
         return redirect('edite-cota')
 
-    return render(request, 'documentation/cotation-filter.html', {'Cotations':Cotations, 'DocumentStandards':DocumentStandards, 'MyProjects':MyProjects, 'Subjects':Subjects, 'total':total, 'colaborador':colaborador, 'photo_colab':photo_colab})
+    return render(request, 'documentation/cotation-filter.html', {'Cotations':Cotations, 'DocumentStandards':DocumentStandards, 'MyProjects':MyProjects, 'Subjects':Subjects, 'total':total, 'colaborador':colaborador, 'photo_colab':photo_colab,'ids':ids})
 
 
 
@@ -392,29 +408,22 @@ def Create_Cotation(request):
 
 def Create_LD(request):
 
-    DocumentStandards = DocumentStandard.objects.all()
+    Cotations = Cotation.objects.all().order_by('subject_name').order_by('doc_name').order_by('proj_name')
 
     GET = dict(request.GET)
-    print('>>>>>>>>>>>>>>>>>>>',GET)
+    print('>>>>>', GET)
 
-    #if len(dict(request.GET)) == 3 and dict(request.GET)['proj'][0] != '0' and dict(request.GET)['sub'][0] != '0':
-        
-        
+    if len(dict(request.GET)) != 0:
 
-    # if dict(request.GET)['action'][0] == 'All':
-    #         #LDcreate.cria_orc_all(GET,DocumentStandards)
-    #         pass
+        ids = dict(request.GET)['action'][0].split('|')
 
-    #         return redirect('ld-projeto')
-
-    #     elif dict(request.GET)['action'][0] != 'All':
-            
-    #         #LDcreate.cria_orc_ind(GET)
-
-    #         return redirect('ld-projeto')
+        print('>>>', ids)
+         
 
 
-    # else:
+
+
+
     
     return redirect('/')
 

@@ -101,12 +101,12 @@
 
                   <form action="{% url 'cotation-list-filter' %}" method="GET">
                   <div class="form-group">
-
+                    
                     <label>Disciplina
                     <select class="form-control select2 select2-hidden-accessible" name="sub">
                       <option selected="selected" data-select2-id="3" value="0">Selecione Disiciplina</option>
-                        {% for sub in Subjects %}
-                        <option value={{sub.id}}>{{sub.subject_name}}</option>
+                        {% for sub in subject_list %}
+                        <option value={{sub.1}}>{{sub.0}}</option>
                         {% endfor%}
                     </select></label>
 
@@ -124,7 +124,7 @@
           </div>
 
               <div class="card-footer">
-                <button type="submit" class="btn btn-info">Filtrar</button>
+                <button type="submit" class="btn btn-info" name="proj" value="{{proj}}">Filtrar</button>
                 <button type="submit" class="btn btn-default float-right">Cancel</button>
               </div>
 
