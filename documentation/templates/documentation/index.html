@@ -3,46 +3,135 @@
 {% block title %}Index{% endblock %}
 {% block content %}
 
-  <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Ambiente de Gerenciamento de Projetos</h3>
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <h5 class="mb-2">Info Box</h5>
+        <div class="row">
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-info"><a href="http://127.0.0.1:8000/projects/?proj=0" class="changelink"><i class="fas fa-chalkboard"></i></a></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Lista de Projetos</span>
+                <span class="info-box-number">--</span>
+              </div>
+              <!-- /.info-box-content -->
             </div>
- 
-            <div class="card-body">
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-success"><i class="fas fa-chart-line"></i></span>
 
-                <div class="app-auth module current-app" id="alinha-tables">
-                    <table>
-                        <caption id="width-caption">
-                            <a href="" class="section" title="Models in the Authentication and Authorization application">Projetos em Andamento</a>
-                        </caption>
-                        <th scope="row"><a href="{% url 'project-list' %}">Acessar</a></th>
-                        <td><a href="{% url 'project-list' %}" class="changelink">Editar</a></td> <!--Implementar uma função para tirar o link qd for só acessar -->
-                    </table>
-                </div>
-
-                <div class="app-auth module current-app" id="alinha-tables">
-                    <table>
-                        <caption id="width-caption">
-                            <a href="#" class="section" title="Models in the Authentication and Authorization application">Área Administrativa</a>
-                        </caption>
-                        <th scope="row"><a href="{% url 'admin:index' %}" target="_blank">Acessar</a></th>
-                        <td><a href="#" class="changelink">Editar</a></td>
-                    </table>
-                </div>
-
+              <div class="info-box-content">
+                <span class="info-box-text">Cotações</span>
+                <span class="info-box-number">Projetos</span>
+              </div>
+              <!-- /.info-box-content --> 
             </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col nav-icon ===== far fa-copy    far fa-flag    -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-warning"><i class="fas fa-layer-group"></i></span>
 
-      </div>
-      <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
-</div>
+              <div class="info-box-content">
+                <span class="info-box-text">Lista de Documentos</span>
+                <span class="info-box-number">Projetos</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+      
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <!-- =========================================================== -->
+        <h5 class="mt-4 mb-2">Info Box With <code>bg-*</code></h5>
+        <div class="row">
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box bg-info">
+              <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Bookmarks</span>
+                <span class="info-box-number">41,410</span>
+
+                <div class="progress">
+                  <div class="progress-bar" style="width: 70%"></div>
+                </div>
+                <span class="progress-description">
+                  70% Increase in 30 Days
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box bg-success">
+              <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Likes</span>
+                <span class="info-box-number">41,410</span>
+
+                <div class="progress">
+                  <div class="progress-bar" style="width: 70%"></div>
+                </div>
+                <span class="progress-description">
+                  70% Increase in 30 Days
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box bg-danger">
+              <span class="info-box-icon"><i class="fas fa-comments"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Comments</span>
+                <span class="info-box-number">41,410</span>
+
+                <div class="progress">
+                  <div class="progress-bar" style="width: 70%"></div>
+                </div>
+                <span class="progress-description">
+                  70% Increase in 30 Days
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+              </div>
+              <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+  </div>
+  <!-- /.content-wrapper -->
+
 
 {% endblock %}

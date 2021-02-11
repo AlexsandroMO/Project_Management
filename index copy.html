@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+{% block content %}
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Ambiente de Gerenciamento de Projetos</h3>
+            </div>
+ 
+            <div class="card-body">
+
+                <div class="app-auth module current-app" id="alinha-tables">
+                    <table>
+                        <caption id="width-caption">
+                            <a href="" class="section" title="Models in the Authentication and Authorization application">Projetos em Andamento</a>
+                        </caption>
+                        <th scope="row"><a href="{% url 'project-list' %}">Acessar</a></th>
+                        <td><a href="{% url 'project-list' %}" class="changelink">Editar</a></td> <!--Implementar uma função para tirar o link qd for só acessar -->
+                    </table>
+                </div>
+
+                <div class="app-auth module current-app" id="alinha-tables">
+                    <table>
+                        <caption id="width-caption">
+                            <a href="#" class="section" title="Models in the Authentication and Authorization application">Área Administrativa</a>
+                        </caption>
+                        <th scope="row"><a href="{% url 'admin:index' %}" target="_blank">Acessar</a></th>
+                        <td><a href="#" class="changelink">Editar</a></td>
+                    </table>
+                </div>
+
+                <div class="app-auth module current-app" id="alinha-tables">
+                  <table>
+                      <caption id="width-caption">
+                          <a href="#" class="section" title="Models in the Authentication and Authorization application">LD</a>
+                      </caption>
+                      <th scope="row"><a href="http://127.0.0.1:8000/cotation/?proj=1" target="_blank">Acessar</a></th>
+                      <td><a href="#" class="changelink">Editar</a></td>
+                  </table>
+              </div>
+
+            </div>
+
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+
+{% endblock %}

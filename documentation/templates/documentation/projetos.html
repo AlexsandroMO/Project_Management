@@ -5,6 +5,8 @@
 
 
 
+<!-- Main Sidebar Container -->
+
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -17,13 +19,14 @@
 
             <!-- /.card-header -->
             <div class="card-body">
+              <div class="card-table">
               <table id="example2" class="table table-bordered table-striped dataTable dtr-inline">
                 <thead>
                   <tr>
                     <th id="col-id">
                       <div class="input-group-prepend">
                         <!-- <span class="input-group-text"> -->
-                          <input class="marcar" type="checkbox" name="action" value="All"  onclick="marcarTodos(this.checked);">
+                          <!-- <input class="marcar" type="checkbox" name="action" value="All"  onclick="marcarTodos(this.checked);"> -->
                         <!-- </span> -->
                       </div>
                     <div class="clear"></div>
@@ -44,16 +47,16 @@
                         <!-- </span> -->
                       </div>
                     </td> 
-                    <td class="field-proj_name nowrap"><a href="http://127.0.0.1:8000/index2/{{proj.id}}">{{proj.project_name}}</a></td>
+                    <td class="field-proj_name nowrap"><a href="http://127.0.0.1:8000/index2/?proj={{proj.id}}">{{proj.project_name}}</a></td>
                     <td>{{proj.company}}</td>
                     <td>{{proj.comments}}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
               </table>
+            </div>
           </div>
 
-   
           <form action="{% url 'calc-cota' %}" method="GET"> 
 
             <div class="card card-default collapsed-card">

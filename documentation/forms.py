@@ -1,5 +1,5 @@
 from django import forms
-from .models import  MyProject, Subject, PageT, DocT, Pageformat, DocumentStandard, Employee, StatusDoc, Action, Cotation
+from .models import  MyProject, Subject, PageT, DocT, Pageformat, DocumentStandard, Employee, StatusDoc, Action, Cotation, LdProj
 
 
 class MyProjectForm(forms.ModelForm):
@@ -70,3 +70,10 @@ class CotationForm(forms.ModelForm):
     class Meta:
         model = Cotation
         fields = ('proj_name', 'subject_name', 'doc_name_pattern','doc_name', 'cod_doc_type','page_type','format_doc','qt_page', 'qt_hh','cost_doc')
+
+
+class LdProjForm(forms.ModelForm):
+
+    class Meta:
+        model = LdProj
+        fields = ('proj_name', 'subject_name', 'doc_name_pattern','doc_name', 'cod_doc_type','page_type','format_doc','status','responsible','elab','verif','aprov','emiss','date')

@@ -28,6 +28,10 @@ table{
 /*Dimencionamento de Colunas*/
 
 
+
+
+
+
 #col-id{
     width: 15px;
 }
@@ -129,6 +133,11 @@ table{
 #id_doc_name_pattern{
     width: 300px;
 }
+
+#col-name{
+    width: 300px; 
+}
+
 
 
 

@@ -33,8 +33,8 @@ class CotationAdmin(admin.ModelAdmin):
 
 
 class LdProjAdmin(admin.ModelAdmin):
-    fields = ('proj_name', 'subject_name', 'doc_name_pattern','doc_name', 'cod_doc_type','page_type','format_doc','qt_page', 'status','responsible','elab','verif','aprov','emiss','date')
-    list_display = ('id','proj_name', 'subject_name', 'doc_name_pattern','doc_name', 'cod_doc_type','page_type','format_doc','qt_page', 'status','responsible','elab','verif','aprov','emiss','date') 
+    fields = ('proj_name', 'subject_name', 'doc_name_pattern','doc_name', 'cod_doc_type','page_type','format_doc','status','responsible','elab','verif','aprov','emiss','date')
+    list_display = ('id','proj_name', 'subject_name', 'doc_name_pattern','doc_name', 'cod_doc_type','page_type','format_doc','status','responsible','elab','verif','aprov','emiss','date') 
 
 
 class UploadAdmin(admin.ModelAdmin):

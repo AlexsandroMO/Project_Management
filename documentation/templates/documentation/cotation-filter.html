@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}LD{% endblock %}
+{% block title %}Cotataion-Filter{% endblock %}
 {% block content %}
 
   <!-- Main content -->
@@ -10,7 +10,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Lista de Documentos de Projetos</h3>
+              <h3 class="card-title">Lista de Documentos de Projetos {{ids}} </h3>
             </div>
 
             <div class="card-body">
@@ -27,7 +27,7 @@
                         </div>
                       <div class="clear"></div>
                       </th>
-                      <th id="col-name-proj" >NOME DO PROJETO</th>                  <!--scope="col" class="sortable column-proj_name" -->
+                      <th id="col-name-proj" >NOME DO PROJETO</th>                 <!--scope="col" class="sortable column-proj_name" -->
                       <th id="col-disc">DISCIPLINA</th>
                       <th id="col-doc-name" >NOME DO DOCUMENTO</th>
                       <th id="col-cod">CÓD. DOC.</th>
@@ -89,7 +89,7 @@
           
           <div class="card card-default collapsed-card">
             <div class="card-header">
-              <h3 class="card-title">Selecionar Projeto e Disciplina</h3>
+              <h3 class="card-title">Criar LD do Projeto</h3>
   
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -109,8 +109,7 @@
 
                   
                   <div class="form-group">
-                    {{ids.0}} | {{ids.1}}
-                      <button type="submit" class="btn btn-info" name="action" value="{{ids.0}}|{{ids.1}}">Filtrar</button> <!--<a href="{% url 'create-LD' %}">Filtrar</a>-->
+                      <button type="submit" class="btn btn-info" name="action" value="{{ids.0}}|{{ids.1}}">Criar LD</button> <!--<a href="{% url 'create-LD' %}">Filtrar</a>-->
 
                   </div>
                 </div>

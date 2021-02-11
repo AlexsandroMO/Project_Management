@@ -126,6 +126,28 @@ def calc_cota(Cotations, Values, GET):
 
 
 
+def cria_ld_call(Cotations):
+    print('entrou')
+
+    def cria_ld(proj, sub, id_doc,name_doc,type_id,type_page_id,format_id,date_today):
+        conn = sqlite3.connect('db.sqlite3')
+        c = conn.cursor()
+
+        qsl_datas = f"""
+                    INSERT INTO documentation_ldproj(proj_name_id,subject_name_id,doc_name_pattern_id,doc_name,cod_doc_type_id,page_type_id,format_doc_id,created_ct,update_ct)
+                    VALUES ('{proj}','{sub}','{id_doc}','{name_doc}','{type_id}','{type_page_id}','{format_id}','{date_today}','{date_today}');
+                    """
+        c.execute(qsl_datas)
+        conn.commit()
+        conn.close()
+
+    
+    for i in Cotations:
+        print('>>>>>>',i.proj_name_id,i.subject_name_id,i.doc_name_pattern_id,i.doc_name,i.cod_doc_type_id,i.page_type_id,i.format_doc_id)
+        cria_ld(i.proj_name_id,i.subject_name_id,i.doc_name_pattern_id,i.doc_name,i.cod_doc_type_id,i.page_type_id,i.format_doc_id, date_today)
+
+    
+    
 
 
 '''
