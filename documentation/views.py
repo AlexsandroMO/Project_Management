@@ -101,12 +101,20 @@ def projectlist(request):
     GET = dict(request.GET)
     proj = int(GET['proj'][0])
 
-    print('>>>>>',GET)
+    Employees = Employee.objects.all().order_by('-emp_name')
+    #----------------------
+    colab = request.user
 
-    '''if dict(request.GET)['proj'][0] != '0':
-        proj = int(GET['proj'][0])'''
+    colaborador = ''
+    photo_colab = ''
 
-    return render(request, 'documentation/projetos.html', {'MyProjects': MyProjects, 'proj':proj})
+    for a in Employees:
+        if colab == a.user:
+            colaborador = a.emp_name
+            photo_colab = a.photo
+    #----------------------
+
+    return render(request, 'documentation/projetos.html', {'MyProjects': MyProjects, 'colaborador':colaborador, 'photo_colab':photo_colab, 'proj':proj})
 
 
 
@@ -158,57 +166,9 @@ def docummentypelist(request, id):
 
 
 
-def Subjectlist(request):
-    
-    Sub = Subject.objects.all().order_by('-subject_name')
-    paginator = Paginator(Sub, 10)
-    page = request.GET.get('page')
-
-    Subjects = paginator.get_page(page)
-
-    return render(request, 'documentation/disciplinas.html', {'Subjects': Subjects})
-
-
-
-def Actionlist(request):
-    
-    Actions = Action.objects.all().order_by('-action_type') 
-
-    return render(request, 'documentation/action.html', {'Actions': Actions})
-
-
-
-def Statuslist(request):
-    
-    Status = StatusDoc.objects.all().order_by('-doc_status')
-
-    paginator = Paginator(Status, 10)
-    page = request.GET.get('page')
-
-    StatusDocs = paginator.get_page(page)
-
-    return render(request, 'documentation/status-doc.html', {'StatusDocs': StatusDocs})
-
-
-
-def Employeelist(request):
-    
-    Empl = Employee.objects.all().order_by('-emp_name')
-
-    paginator = Paginator(Empl, 10)
-    page = request.GET.get('page')
-
-    Employees = paginator.get_page(page)
-
-    cols = ['NOME DO COLABORADOR', 'CARGO', 'REGISTRO']
-
-    return render(request, 'documentation/employee.html', {'Employees': Employees, 'cols':cols})
-
-
-
 def Uploadlists(request):
-    if request.GET.get('arq'):
-        print('entrou')
+    # if request.GET.get('arq'):
+    #     print('entrou')
 
     Uploads = Upload.objects.all().order_by('-arq')
 
@@ -226,16 +186,11 @@ def Cotationlist(request):
 
     GET = dict(request.GET)
 
-    print('>>>>>',GET)
-
     if dict(request.GET)['proj'][0] != '0':
-        #sub = int(GET['sub'][0])
         proj = int(GET['proj'][0])
 
         Subjects = Subject.objects.all()
         Cotations = Cotations.filter(proj_name__id=proj)
-        #Cotations = Cotations.filter(subject_name__id=sub)
-        #Subjects = Subjects.filter(id=sub)
 
         #----------------------
         for a in Subjects:
@@ -328,10 +283,22 @@ def Cotationlist_filter(request):
 def EditeCotation(request, id):
 
     GET = dict(request.GET)
-    print('>>>>', GET)
+
+    Employees = Employee.objects.all().order_by('-emp_name')
+    #----------------------
+    colab = request.user
+
+    colaborador = ''
+    photo_colab = ''
+
+    for a in Employees:
+        if colab == a.user:
+            colaborador = a.emp_name
+            photo_colab = a.photo
+                
+    #----------------------
 
     Cotations = get_object_or_404(Cotation, pk=id)
-
     form = CotationForm(instance=Cotations)
 
     if (request.method == 'POST'):
@@ -343,10 +310,10 @@ def EditeCotation(request, id):
             return redirect('/')
             
         else:
-            return render(request, 'documentation/edite-cotation.html', {'form': form, 'Cotations': Cotations}) 
+            return render(request, 'documentation/edite-cotation.html', {'form': form, 'Cotations': Cotations, 'colaborador':colaborador, 'photo_colab':photo_colab}) 
 
     else:
-        return render(request, 'documentation/edite-cotation.html', {'form': form, 'Cotations': Cotations})
+        return render(request, 'documentation/edite-cotation.html', {'form': form, 'Cotations': Cotations, 'colaborador':colaborador, 'photo_colab':photo_colab})
 
 
 def DeleteCotation(request, id):
@@ -361,25 +328,44 @@ def DeleteCotation(request, id):
 def LD_Proj(request):
 
     LdProjs = LdProj.objects.all().order_by('subject_name')
-    for a in LdProjs:
-        print('....', a)
 
     GET = dict(request.GET)
-    print('>>>>', GET)
 
     if dict(request.GET)['proj'][0] != '0':
         proj = int(GET['proj'][0])
         LdProjs = LdProjs.filter(proj_name__id=2)
 
-        for a in LdProjs:
-            print('....', a)
-    
+    Employees = Employee.objects.all().order_by('-emp_name')
+    #----------------------
+    colab = request.user
 
-    return render(request, 'documentation/LD-projeto.html', {'LdProjs':LdProjs, 'proj':proj})
+    colaborador = ''
+    photo_colab = ''
+
+    for a in Employees:
+        if colab == a.user:
+            colaborador = a.emp_name
+            photo_colab = a.photo
+    #----------------------
+
+    return render(request, 'documentation/LD-projeto.html', {'LdProjs':LdProjs, 'colaborador':colaborador, 'photo_colab':photo_colab, 'proj':proj})
 
 
 
 def EditeLD(request, id):
+
+    Employees = Employee.objects.all().order_by('-emp_name')
+    #----------------------
+    colab = request.user
+
+    colaborador = ''
+    photo_colab = ''
+
+    for a in Employees:
+        if colab == a.user:
+            colaborador = a.emp_name
+            photo_colab = a.photo
+    #----------------------
 
     LdProjs = LdProj.objects.all()
     LD = get_object_or_404(LdProj, pk=id)
@@ -394,10 +380,10 @@ def EditeLD(request, id):
             return redirect('/')
             
         else:
-            return render(request, 'documentation/edite-LD.html', {'form': form, 'LdProjs': LdProjs,'LD':LD}) 
+            return render(request, 'documentation/edite-LD.html', {'form': form, 'LdProjs': LdProjs,'LD':LD, 'colaborador':colaborador, 'photo_colab':photo_colab}) 
 
     else:
-        return render(request, 'documentation/edite-LD.html', {'form': form, 'LdProjs': LdProjs})
+        return render(request, 'documentation/edite-LD.html', {'form': form, 'LdProjs': LdProjs, 'colaborador':colaborador, 'photo_colab':photo_colab})
 
 
 
