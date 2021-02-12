@@ -30,7 +30,7 @@ def dataTable(request):
     return render(request, 'documentation/datatable.html', {'MyProjects': MyProjects, 'proj':proj})
 
 
-@login_required
+
 def index(request):
 
     MyProjects = MyProject.objects.all().order_by('-project_name')
@@ -53,6 +53,8 @@ def index(request):
 @login_required
 def index2(request):
 
+    GET = dict(request.GET)
+
     DocumentStandards = DocumentStandard.objects.all()
     Actions = Action.objects.all()
     StatusDocs = StatusDoc.objects.all()
@@ -60,14 +62,9 @@ def index2(request):
     #Cotations = Cotation.objects.all()
     Subjects = Subject.objects.all().order_by('subject_name')
 
-    GET = dict(request.GET)
-
-    print('>>>>>',GET)
-
     if dict(request.GET)['proj'][0] != '0':
 
         proj = int(GET['proj'][0])
-        print(proj)
 
         MyProjects = MyProject.objects.filter(id=proj)
 
@@ -88,7 +85,7 @@ def index2(request):
 
     return render(request, 'documentation/index2.html', {'MyProjects': MyProjects, 'DocumentStandards': DocumentStandards, 'Subjects':Subjects,'Actions': Actions, 'StatusDocs':StatusDocs, 'Employees':Employees, 'colaborador':colaborador, 'photo_colab':photo_colab, 'proj':proj})
 
-
+@login_required
 def projectlist(request):
 
     MyProjects = MyProject.objects.all().order_by('project_name')
@@ -118,33 +115,14 @@ def projectlist(request):
 
 
 
-def Pagetypelist(request):
-    
-    pagets = PageT.objects.all()
-
-    return render(request, 'documentation/pages-type.html', {'pagets': pagets})
-
-
-
-def Doctypelist(request):
-    
-    docts = DocT.objects.all()
-    #paginator = Paginator(doc, 10)
-    #page = request.GET.get('page')
-
-    #docts = paginator.get_page(page)
-
-    return render(request, 'documentation/doc-type.html', {'docts': docts})
-
-
-
 @login_required
-def docummentypelist(request, id):
+def docummentypelist(request):
+
+    GET = dict(request.GET)
+    proj = int(GET['proj'][0])
     
-    #Document = DocumentStandard.objects.all().order_by('doc_type').filter(user=request.user)
     Document = DocumentStandard.objects.all().order_by('doc_type')
-    #MyProjects = MyProject.objects.all().order_by('project_name')
-    MyProjects = MyProject.objects.filter(id=id)
+    MyProjects = MyProject.objects.filter(id=proj)
     Subjects = Subject.objects.all().order_by('subject_name')
     Employees = Employee.objects.all().order_by('-emp_name')
 
@@ -175,7 +153,7 @@ def Uploadlists(request):
     return render(request, 'documentation/upload.html', {'Uploads':Uploads})
 
 
-#@login_required
+@login_required
 def Cotationlist(request):
 
     MyProjects = MyProject.objects.all().order_by('project_name')
@@ -192,11 +170,7 @@ def Cotationlist(request):
         Subjects = Subject.objects.all()
         Cotations = Cotations.filter(proj_name__id=proj)
 
-        #----------------------
-        for a in Subjects:
-            print('----', a.id, a.subject_name)
-        #----------------------
-
+        #-----------------------
         calc = []
         for i in Cotations:
             calc.append(i.cost_doc)
@@ -227,18 +201,16 @@ def Cotationlist(request):
 
 #?sub=1&proj=1
 
-#@login_required
+@login_required
 def Cotationlist_filter(request):
+
+    GET = dict(request.GET)
 
     MyProjects = MyProject.objects.all().order_by('project_name')
     
     Cotations = Cotation.objects.all().order_by('subject_name').order_by('doc_name').order_by('proj_name')
     DocumentStandards = DocumentStandard.objects.all()
     Employees = Employee.objects.all().order_by('-emp_name')
-
-    GET = dict(request.GET)
-
-    print('>>>>>',GET)
 
     if dict(request.GET)['sub'][0] != '0':
         sub = int(GET['sub'][0])
@@ -279,7 +251,7 @@ def Cotationlist_filter(request):
 
     return render(request, 'documentation/cotation-filter.html', {'Cotations':Cotations, 'DocumentStandards':DocumentStandards, 'MyProjects':MyProjects, 'Subjects':Subjects, 'total':total, 'colaborador':colaborador, 'photo_colab':photo_colab,'ids':ids})
 
-
+@login_required
 def EditeCotation(request, id):
 
     GET = dict(request.GET)
@@ -315,6 +287,7 @@ def EditeCotation(request, id):
     else:
         return render(request, 'documentation/edite-cotation.html', {'form': form, 'Cotations': Cotations, 'colaborador':colaborador, 'photo_colab':photo_colab})
 
+@login_required
 
 def DeleteCotation(request, id):
     Cotations = get_object_or_404(Cotation, pk=id)
@@ -325,6 +298,7 @@ def DeleteCotation(request, id):
     return redirect('/')
 
 #---------------------------------------------------------------
+@login_required
 def LD_Proj(request):
 
     LdProjs = LdProj.objects.all().order_by('subject_name')
@@ -351,7 +325,7 @@ def LD_Proj(request):
     return render(request, 'documentation/LD-projeto.html', {'LdProjs':LdProjs, 'colaborador':colaborador, 'photo_colab':photo_colab, 'proj':proj})
 
 
-
+@login_required
 def EditeLD(request, id):
 
     Employees = Employee.objects.all().order_by('-emp_name')
@@ -401,7 +375,6 @@ def Create_Cotation(request):
             return redirect('/')
 
         elif dict(request.GET)['action'][0] != 'All':
-            print('>>>>>>>>>>>>>>>>>>>', dict(request.GET))
             LDcreate.cria_orc_ind(GET)
 
             return redirect('/')
@@ -420,13 +393,9 @@ def Create_LD(request):
 
     if len(dict(request.GET)) != 0:
         ids = dict(request.GET)['action'][0].split('|')
-        for i in ids:
-            print('---', i)
 
         proj = int(ids[1])
         sub = int(ids[0])
-
-        print(proj, sub)
 
         Cotations = Cotations.filter(proj_name__id=proj)
         Cotations = Cotations.filter(subject_name__id=sub)
@@ -464,8 +433,9 @@ def Calc_Cota(request):
     DocumentStandards = DocumentStandard.objects.all().order_by('doc_type') 
     Actions = Action.objects.all().order_by('-action_type')
     StatusDocs = StatusDoc.objects.all().order_by('-doc_status')
+
     Employees = Employee.objects.all().order_by('-emp_name')
-    #Cotations = Cotation.objects.all().order_by('-proj_name')
+    #------------------     
     colab = request.user
     colaborador = ''
     photo_colab = ''
@@ -474,6 +444,7 @@ def Calc_Cota(request):
         if colab == a.user:
             colaborador = a.emp_name
             photo_colab = a.photo
+   #------------------
 
     GET = dict(request.GET)
 
@@ -524,7 +495,6 @@ def Create_PL(request): #Uso admin /CreatePL
     form_ac = ActionForm()
 
     execute = CODE.cria_tabelas(MyProjects,PageTs,DocTs,DocumentStandards,Subjects,Actions,StatusDocs,Employees,form_proj,form_dis,form_paget,form_doct,form_format,form_doc,form_func,form_st,form_ac)
-    #print(execute)
 
     return redirect('/')
 
