@@ -6,21 +6,18 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <h5 class="mb-2">Info Box</h5>
+        <h5 class="mb-2">Área de Projetos</h5>
         <div class="row">
           <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box">
               <span class="info-box-icon bg-info"><a href="http://127.0.0.1:8000/projects/?proj=0" class="changelink"><i class="fas fa-chalkboard"></i></a></span>
               <div class="info-box-content">
                 <span class="info-box-text">Lista de Projetos</span>
-                <span class="info-box-number">--</span>
+                <span class="info-box-number">{{MyProjects.0.project_name}}</span>
               </div>
-              <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
           </div>
-          <!-- /.col -->
-          
+          <!-- ||||||||||||||||||||||||||||||||||||||| -->
           <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box">
                
@@ -39,32 +36,35 @@
                             {% endfor%} -->
                         </select></label>
                 </span>
-
-            <!-- </form> -->
               </div>
-              <!-- /.info-box-content --> 
             </div>
-            <!-- /.info-box -->
           </div>
           
           <!-- /.col nav-icon ===== far fa-copy    far fa-flag    -->
           <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box">
               <span class="info-box-icon bg-warning"><a href="http://127.0.0.1:8000/LD_Proj/?proj={{MyProjects.0.id}}" class="changelink"><i class="fas fa-layer-group"></i></a></span>
-
               <div class="info-box-content">
                 <span class="info-box-text">Lista de Documentos</span>
                 <span class="info-box-number">Projetos</span>
               </div>
-              <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
           </div>
-          <!-- /.col -->
-      
-          <!-- /.col -->
+
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-info"><a href="http://127.0.0.1:8000/LD_Proj/?proj={{MyProjects.0.id}}" class="changelink"><i class="fas fa-chalkboard"></i></a></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Projeto em Andamento</span>
+                <span class="info-box-number">{{MyProjects.0.project_name}}</span>
+              </div>
+            </div>
+          </div>
+
+
+          
+
         </div>
-        <!-- /.row -->
 
         <!-- =========================================================== -->
         <h5 class="mt-4 mb-2">Info Box With <code>bg-*</code></h5>
