@@ -84,8 +84,8 @@
                       <label>Disciplina
                       <select class="form-control select2 select2-hidden-accessible" name="sub">
                         <option selected="selected" data-select2-id="3" value="0">Selecione Disiciplina</option>
-                          {% for sub in Subjects %}
-                          <option value={{sub.id}}>{{sub.subject_name}}</option>
+                          {% for sb in sub %}
+                            <option value={{sb.1}}>{{sb.0}}</option>
                           {% endfor%}
                       </select></label>
   
@@ -157,7 +157,7 @@
                         </label>
                       </div>
                       <button type="submit" class="btn btn-info">Cotar</button>
-                      <input type="checkbox" id="checkboxPrimary2" name="cota" value="x" checked="" disabled id="customSwitch2">
+                      <input type="checkbox" id="checkboxPrimary2" name="cota" value="x" checked="" disabled id="customSwitch2" hidden>
                     </div>
                       </div>
                       <!-- /.col -->

@@ -21,6 +21,7 @@ urlpatterns = [
     path('cotation/', views.Cotationlist, name='cotation-list'),
     path('cotationFilter/', views.Cotationlist_filter, name='cotation-list-filter'),
     path('edite_cotation/<int:id>', views.EditeCotation, name='edite-cota'),
+    path('edite_cotation_all/', views.EditeCotationAll, name='edite-cota-all'),
     path('edite_LD/<int:id>', views.EditeLD, name='edite-ld'),
     path('LD_Proj/', views.LD_Proj, name='ld-projeto'),
     path('CreatePL/', views.Create_PL, name='Create-PL'),

@@ -25,8 +25,9 @@ table{
     
 }
 
-/*Dimencionamento de Colunas*/
-
+#bt-back{
+    float: right;
+}
 
 
 
@@ -94,18 +95,18 @@ table{
 
 #id_doc_name{
     width: 300px; 
-    height: 20px;
+    height: 35px;
 }
 
 #id_qt_page{
     width: 100px; 
-    height: 20px;
+    height: 35px;
 }
 
 
 #id_qt_hh{
     width: 100px; 
-    height: 20px;
+    height: 35px;
 }
 
 

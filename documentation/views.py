@@ -2,9 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponse
+from .models import MyProject, PageT, DocT, DocumentStandard, Subject, Action, StatusDoc, Employee, Cotation, Upload, ProjectValue, LdProj
 from .forms import MyProjectForm, SubjectForm, PageTForm, DocTForm, PageformatForm, DocumentStandardForm, EmployeeForm, StatusDocForm, ActionForm, CotationForm, LdProjForm
 from django.contrib import messages
-from .models import MyProject, PageT, DocT, DocumentStandard, Subject, Action, StatusDoc, Employee, Cotation, Upload, ProjectValue, LdProj
 
 from django.utils.formats import localize
 from django.db.models import Q
@@ -128,7 +128,7 @@ def docummentypelist(request):
 
     len_doc = len(Document)
 
-    proj = 0
+    #proj = 0
 
     colab = request.user
 
@@ -156,19 +156,31 @@ def Uploadlists(request):
 @login_required
 def Cotationlist(request):
 
-    MyProjects = MyProject.objects.all().order_by('project_name')
-    
     Cotations = Cotation.objects.all().order_by('subject_name').order_by('doc_name').order_by('proj_name')
     DocumentStandards = DocumentStandard.objects.all()
     Employees = Employee.objects.all().order_by('-emp_name')
 
     GET = dict(request.GET)
 
-    if dict(request.GET)['proj'][0] != '0':
-        proj = int(GET['proj'][0])
+    if dict(request.GET)['proj'] != '0':
+        proj = int(GET['proj'])
+        print('--------\n\n\n\n')
 
         Subjects = Subject.objects.all()
         Cotations = Cotations.filter(proj_name__id=proj)
+
+        #-----------------------
+        sub_filter = []
+        for i in Cotations:
+            sub_filter.append(str(i.subject_name))
+        
+        sub_filted = sorted(set(sub_filter))
+
+        sub = []
+        for i in Subjects:
+            for j in sub_filted:
+                if i.subject_name == j:
+                    sub.append([j, i.id])
 
         #-----------------------
         calc = []
@@ -196,7 +208,7 @@ def Cotationlist(request):
     else:
         return redirect('edite-cota')
 
-    return render(request, 'documentation/cotation.html', {'Cotations':Cotations, 'DocumentStandards':DocumentStandards, 'MyProjects':MyProjects, 'Subjects':Subjects, 'total':total, 'colaborador':colaborador, 'photo_colab':photo_colab,'proj':proj})
+    return render(request, 'documentation/cotation.html', {'Cotations':Cotations, 'DocumentStandards':DocumentStandards, 'Subjects':Subjects, 'total':total, 'colaborador':colaborador, 'photo_colab':photo_colab,'proj':proj, 'sub':sub})
 
 
 #?sub=1&proj=1
@@ -205,58 +217,60 @@ def Cotationlist(request):
 def Cotationlist_filter(request):
 
     GET = dict(request.GET)
+    print('-----------', GET)
+    print('--------\n\n\n\n')
 
     MyProjects = MyProject.objects.all().order_by('project_name')
     
-    Cotations = Cotation.objects.all().order_by('subject_name').order_by('doc_name').order_by('proj_name')
+    Cotations = Cotation.objects.all()
     DocumentStandards = DocumentStandard.objects.all()
     Employees = Employee.objects.all().order_by('-emp_name')
 
-    if dict(request.GET)['sub'][0] != '0':
-        sub = int(GET['sub'][0])
-        proj = int(GET['proj'][0])
-        Subjects = Subject.objects.all().order_by('subject_name')
-        Cotations = Cotations.filter(proj_name__id=proj)
-        Cotations = Cotations.filter(subject_name__id=sub)
-        Subjects = Subjects.filter(id=sub)
+    sub = int(GET['sub'][0])
+    proj = int(GET['proj'][0])
+    Subjects = Subject.objects.all().order_by('subject_name')
+    Cotations = Cotations.filter(proj_name__id=proj)
+    Cotations = Cotations.filter(subject_name__id=sub)
+    Subjects = Subjects.filter(id=sub)
 
-        #----------------------
-        ids = [sub, proj]
-        #----------------------
+    #----------------------
 
-        calc = []
-        for i in Cotations:
-            calc.append(i.cost_doc)
+    calc = []
+    for i in Cotations:
+        calc.append(i.cost_doc)
 
-        total = localize(sum(calc))
-        total = str(total)
-        total = total.split()
+    total = localize(sum(calc))
+    total = str(total)
+    total = total.split()
 
-        total = CODE.financial(total)
+    total = CODE.financial(total)
 
-        #----------------------
-        colab = request.user
+    #----------------------
+    colab = request.user
 
-        colaborador = ''
-        photo_colab = ''
+    colaborador = ''
+    photo_colab = ''
 
-        for a in Employees:
-            if colab == a.user:
-                colaborador = a.emp_name
-                photo_colab = a.photo
-                
-        #----------------------
-    else:
-        return redirect('edite-cota')
+    for a in Employees:
+        if colab == a.user:
+            colaborador = a.emp_name
+            photo_colab = a.photo
+            
+    #----------------------
 
-    return render(request, 'documentation/cotation-filter.html', {'Cotations':Cotations, 'DocumentStandards':DocumentStandards, 'MyProjects':MyProjects, 'Subjects':Subjects, 'total':total, 'colaborador':colaborador, 'photo_colab':photo_colab,'ids':ids})
+    return render(request, 'documentation/cotation-filter.html', {'Cotations':Cotations, 'DocumentStandards':DocumentStandards,
+                                                                'MyProjects':MyProjects,'Subjects':Subjects, 'total':total,
+                                                                'colaborador':colaborador, 'photo_colab':photo_colab,'sub':sub, 'proj':proj})
 
 @login_required
 def EditeCotation(request, id):
 
     GET = dict(request.GET)
+    print('\n\n')
+    print('>>>>>>>>>>',GET)
+    print('\n\n') 
 
-    Employees = Employee.objects.all().order_by('-emp_name')
+    Employees = Employee.objects.all()
     #----------------------
     colab = request.user
 
@@ -279,7 +293,7 @@ def EditeCotation(request, id):
         if (form.is_valid()):
             Cotations.cost_doc = 0
             Cotations.save()
-            return redirect('/')
+            return redirect('http://127.0.0.1:8000/cotationFilter/?sub=2&proj=1')
             
         else:
             return render(request, 'documentation/edite-cotation.html', {'form': form, 'Cotations': Cotations, 'colaborador':colaborador, 'photo_colab':photo_colab}) 
@@ -287,7 +301,81 @@ def EditeCotation(request, id):
     else:
         return render(request, 'documentation/edite-cotation.html', {'form': form, 'Cotations': Cotations, 'colaborador':colaborador, 'photo_colab':photo_colab})
 
+
+
 @login_required
+def EditeCotationAll(request):
+    GET = dict(request.GET)
+
+    print('\n\n')
+    print('>>>>>>>>>>',GET)
+    print('\n\n') 
+
+    #sub = GET['action-1']
+    #proj = GET['xx-2']
+
+    #if GET['id-form'][0] == '0':
+        #pass
+        #trata_edit_cota_all(GET, sub, proj)
+
+    #else:
+        #pass
+        #return redirect('edite-cota' + '/' + id)
+        
+
+    # Cotations = Cotation.objects.all()
+    # Employees = Employee.objects.all()
+    # #----------------------
+    # colab = request.user
+
+    # colaborador = ''
+    # photo_colab = ''
+
+    # for a in Employees:
+    #     if colab == a.user:
+    #         colaborador = a.emp_name
+    #         photo_colab = a.photo
+                
+    # #----------------------
+
+    #Cotations = get_object_or_404(Cotation, pk=id)
+    #form = CotationForm(instance=Cotations)
+
+    if (request.method == 'POST'):
+        #form = CotationForm(request.POST, instance=Cotations)
+        
+        #if (form.is_valid()):
+            #Cotations.cost_doc = 0
+            #Cotations.save()
+            #return redirect('http://127.0.0.1:8000/cotationFilter/?sub=2&proj=1') 'form': form, 
+            
+        #else:
+        return render(request, 'documentation/edite-cotation-all.html') 
+        #return render(request, 'documentation/edite-cotation-all.html', {'Cotations': Cotations, 'colaborador':colaborador, 'photo_colab':photo_colab}) 
+
+    else:
+        return render(request, 'documentation/edite-cotation-all.html')
+
+
+def trata_edit_cota_all(GET, proj, sub):
+    print('------------->        entrou!!!')
+
+    Cotations = Cotation.objects.all()
+    Cotations = Cotations.filter(proj_name__id=proj)
+    Cotations = Cotations.filter(subject_name__id=sub)
+
+    Cotations = get_object_or_404(Cotation, pk=id)
+    form = CotationForm(instance=Cotations)
+    
+    form = CotationForm()
+        
+    #return render(request, 'documentation/edite-cotation.html', {'form': form, 'Cotations': Cotations, 'colaborador':colaborador, 'photo_colab':photo_colab}) 
+
+
+
+
+
+
 
 def DeleteCotation(request, id):
     Cotations = get_object_or_404(Cotation, pk=id)

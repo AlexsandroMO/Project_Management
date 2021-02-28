@@ -37,24 +37,31 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        {% if proj == 0 %}
-        <a href="/" class="nav-link">Home</a>
-        {% else %}
+    
         <a href="http://127.0.0.1:8000/index2/?proj={{proj}}" class="nav-link">Home</a>
-        {% endif %}
+        
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="http://127.0.0.1:8000/typeDocuments/?proj={{MyProjects.0.id}}" class="nav-link">Lista de Documentos</a>
+        {% if proj == 0 %}
+        <a href="/" class="nav-link">Lista de Documentos</a>
+        {% else %}
+        <a href="http://127.0.0.1:8000/typeDocuments/?proj={{proj}}" class="nav-link">Lista de Documentos</a>
+        {% endif %}
       </li>
   
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="http://127.0.0.1:8000/cotation/?proj={{MyProjects.0.id}}" class="nav-link">Cotations</a>
+        {% if proj == 0 %}
+        <a href="/" class="nav-link">Cotations</a>
+        {% else %}
+        <a href="http://127.0.0.1:8000/cotation/?proj={{proj}}" class="nav-link">Cotations</a>
+        {% endif %}
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Cotations_Filter</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="http://127.0.0.1:8000/LD_Proj/?proj={{MyProjects.0.id}}" class="nav-link">LD</a>
+        {% if proj == 0 %}
+        <a href="/" class="nav-link">LD</a>
+        {% else %}
+        <a href="http://127.0.0.1:8000/LD_Proj/?proj={{proj}}" class="nav-link">LD</a>
+        {% endif %}
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{% url 'logout' %}" class="nav-link">LogOut</a>
@@ -788,7 +795,8 @@
 
     {% block content %}{% endblock %}
 
- <!-- /.content-wrapper -->
+  </div>
+  <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.1.0-rc
@@ -825,6 +833,9 @@
 <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'dist/js/demo.js' %}"></script>
+
+<script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
+<script src="{% static '/dist/js/pages/dashboard3.js' %}"></script>
 
 <!-- My Script -->
 <script src="{% static 'js/script.js' %}"></script>
