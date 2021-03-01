@@ -3,32 +3,50 @@
 {% block title %}Pagina Inicial{% endblock %}
 {% block content %}
 
- <!-- Content -->
- <div id="content" class="colMS">        
-  <h1>Upload DOCs</h1>
 
-<!--     <form action="." method="get">
-      <a><input name="arq" type="submit" class="btn btn-sucess" id="bt-2" value="Cadastra Templates" ></a>
-    </form> -->
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
 
-    <form action="{% url 'upload-list' %}" method="POST" enctype="multipart/form-data">
-      <input type="file" name="arq"/>
-      <input type="submit" value="Enviar"/>
-    </form>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h2>Upload DOCs</h2><a href="{% url 'download-df' %}?proj={{proj}}&sub={{sub}}&status={{status}}"><button type="button" class="btn btn-success">Download Planilha de Carga</button></a>
+                </div>
+                <br>
+                
+                <div id="alinha-div">
+                  
+                  <form action="{% url 'download-df' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="arq"/>
+                    <input type="submit" value="Enviar"/>
+                  </form>
+                </div> 
+                  {% csrf_token %}
+                  {% for load in Uploads %}
+                  <th scope="col"  class="column-__str__">
+                      <div class="text"><a href="">Arquivos Salvos: {{ load.arq }}</a></div>
+                      <div class="clear"></div>
+                  </th>
 
-  <br>
-  <br>
+                  {% endfor %}
+
+                  <br>
+                  <br>
+                </div>
+
+
+                </div>
+              </div>
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+
+
   
-  {% for load in Uploads %}
-    <th scope="col"  class="column-__str__">
-        <div class="text"><a href="">Arquivos Slavos: {{ load.arq }}</a></div>
-        <div class="clear"></div>
-    </th>
-  {% endfor %}
-
-  <br>
-  <br>
-
-    
 {% endblock %}
 

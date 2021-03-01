@@ -12,21 +12,22 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h2>Upload DOCs</h2>
+                  <h2>Upload DOCs</h2><a href="{% url 'download-df' %}?proj={{proj}}&sub={{sub}}&status={{status}}"><button type="button" class="btn btn-success">Download Planilha de Carga</button></a>
                 </div>
                 <br>
                 
                 <div id="alinha-div">
-                  <form action="{% url 'upload-list' %}" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="arq"/>
-                    <input type="submit" value="Enviar"/>
-                  </form>
-                </div> 
-                  {% for load in Uploads %}
-
                   
+                  <!-- <form action="" method="POST" enctype="multipart/form-data"> -->
+                    {% csrf_token %}
+                    <input type="file" name="arq"/>
+                    <a href="{% url 'visualiza-df' %}"><button type="button" class="btn btn-success">Enviar</button></a>
+                  <!-- </form> -->
+                </div> 
+                  {% csrf_token %}
+                  {% for load in Uploads %}
                   <th scope="col"  class="column-__str__">
-                      <div class="text"><a href="">Arquivos Salvos: {{ load.arq }}</a></div>
+                      <!-- <div class="text"><a href="">Arquivos Salvos: {{ load.arq }}</a></div> -->
                       <div class="clear"></div>
                   </th>
 
@@ -46,12 +47,6 @@
       </section>
 
 
-              
-
-
-
-
-
-    
+  
 {% endblock %}
 

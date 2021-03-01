@@ -162,3 +162,11 @@ class ProjectValue(models.Model): #Upload de arquivos
 
     def __str__(self):
         return str(self.cost_by_hh)
+
+
+'''class Upload_doc(models.Model): #Upload de arquivos
+    arq = models.FileField(upload_to='uploads/', help_text='localizar Arquivo')
+    update_arq = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.arq)'''

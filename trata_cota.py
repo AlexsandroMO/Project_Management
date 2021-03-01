@@ -147,6 +147,9 @@ def cria_ld_call(Cotations):
         cria_ld(i.proj_name_id,i.subject_name_id,i.doc_name_pattern_id,i.doc_name,i.cod_doc_type_id,i.page_type_id,i.format_doc_id, date_today)
 
     
+
+
+
     
 
 

@@ -20,7 +20,8 @@ urlpatterns = [
     #path('cotation/<int:id>', views.Cotationlist, name='cotation-list'),
     path('cotation/', views.Cotationlist, name='cotation-list'),
     path('cotationFilter/', views.Cotationlist_filter, name='cotation-list-filter'),
-    path('edite_cotation/<int:id>', views.EditeCotation, name='edite-cota'),
+    path('visualiza_df/', views.VisualizaDF, name='visualiza-df'),
+    path('edite_cotation/', views.EditeCotation, name='edite-cota'),
     path('edite_cotation_all/', views.EditeCotationAll, name='edite-cota-all'),
     path('edite_LD/<int:id>', views.EditeLD, name='edite-ld'),
     path('LD_Proj/', views.LD_Proj, name='ld-projeto'),
@@ -31,6 +32,9 @@ urlpatterns = [
     path('createLD/', views.Create_LD, name='create-LD'),
     path('CalcCota/', views.Calc_Cota, name='calc-cota'),
     path('upload/', views.Uploadlists, name='upload-list'),
+    path('upload_Table/', views.UploadTable, name='upload-table'),
+    path('download_df/', views.download_df, name='download-df'),
+    
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

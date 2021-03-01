@@ -164,3 +164,8 @@ def cria_tabelas(MyProjects,PageTs,DocTs,DocumentStandards,Subjects,Actions,Stat
 
     return 'feito!'
 
+
+
+
+def trata_edit_cota(GET, proj, sub):
+    print('entrou')

@@ -17,8 +17,12 @@
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body table-responsive p-0">
-                    <form action="{% url 'edite-cota-all' %}" method="GET">
+                    <form action="{% url 'upload-table' %}" method="GET">
+                     
                     <table id="example1" class="table table-bordered table-striped dataTable dtr-inline">
+                      <input name="proj" value="{{proj}}" hidden>
+                      <input name="sub" value="{{sub}}" hidden>
+                      <input name="status" value="false" hidden>
                       <thead>
                         <tr>
                           <th id="col-id">
@@ -51,7 +55,7 @@
                           </td> 
                           <td>{{cota.proj_name}}</a></td>
                           <td>{{cota.subject_name}}</td>
-                          <td class="field-proj_name nowrap"><a href="http://127.0.0.1:8000/edite_cotation_all/?cota={{cota.id}}&proj={{proj}}&sub={{sub}}">{{cota.doc_name}}</a></td>
+                          <td class="field-proj_name nowrap"><a href="http://127.0.0.1:8000/edite_cotation/?cota={{cota.id}}&proj={{proj}}&sub={{sub}}">{{cota.doc_name}}</a></td>
                           <td >{{cota.cod_doc_type}}</td>
                           <td>{{cota.format_doc}}</td>
                           <td>{{cota.page_type}}</td>
@@ -59,6 +63,7 @@
                           <td>{{cota.qt_hh}}</td>
                           <td id="num-convert">R$ {{cota.cost_doc}}</td>
                         </tr>
+                        
                         {% endfor %}
                       </tbody>
                     </table>
@@ -85,8 +90,6 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-6" data-select2-id="29">
-                      <p name="proj" value="{{proj}}"></p>
-                      <p name="sub" value="{{sub}}"></p>
                       <div class="form-group">
                         <button type="submit" class="btn btn-info">Editar Tabela</button> <!--<a href="{% url 'create-LD' %}">Filtrar</a>-->
                       </div>
