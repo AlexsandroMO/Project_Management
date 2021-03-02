@@ -165,7 +165,8 @@ def Cotationlist(request):
 
     Cotations = Cotation.objects.all().order_by('subject_name').order_by('doc_name').order_by('proj_name')
     DocumentStandards = DocumentStandard.objects.all()
-    Employees = Employee.objects.all().order_by('-emp_name')
+    Employees = Employee.objects.all()
+    
 
     GET = dict(request.GET)
     print('----------', GET)
@@ -173,6 +174,8 @@ def Cotationlist(request):
     if GET['proj'] != '0':
         proj = int(GET['proj'][0])
         print('--------\n\n\n\n')
+
+        MyProjects = MyProject.objects.filter(id=proj)
 
         Subjects = Subject.objects.all()
         Cotations = Cotations.filter(proj_name__id=proj)
@@ -216,7 +219,7 @@ def Cotationlist(request):
     else:
         return redirect('edite-cota')
 
-    return render(request, 'documentation/cotation.html', {'Cotations':Cotations, 'DocumentStandards':DocumentStandards, 'Subjects':Subjects, 'total':total, 'colaborador':colaborador, 'photo_colab':photo_colab,'proj':proj, 'sub':sub})
+    return render(request, 'documentation/cotation.html', {'Cotations':Cotations, 'DocumentStandards':DocumentStandards, 'MyProjects':MyProjects,'Subjects':Subjects, 'total':total, 'colaborador':colaborador, 'photo_colab':photo_colab,'proj':proj, 'sub':sub})
 
 
 #?sub=1&proj=1
@@ -225,21 +228,21 @@ def Cotationlist(request):
 def Cotationlist_filter(request):
 
     GET = dict(request.GET)
-    print('-----------', GET)
-    print('--------\n\n\n\n')
 
-    MyProjects = MyProject.objects.all().order_by('project_name')
-    
-    Cotations = Cotation.objects.all()
     DocumentStandards = DocumentStandard.objects.all()
     Employees = Employee.objects.all().order_by('-emp_name')
 
     sub = int(GET['sub'][0])
     proj = int(GET['proj'][0])
+
+    MyProjects = MyProject.objects.filter(id=proj)
+
     Subjects = Subject.objects.all().order_by('subject_name')
+    Subjects = Subjects.filter(id=sub)
+
+    Cotations = Cotation.objects.all().order_by('doc_name')  
     Cotations = Cotations.filter(proj_name__id=proj)
     Cotations = Cotations.filter(subject_name__id=sub)
-    Subjects = Subjects.filter(id=sub)
 
     #----------------------
 
@@ -259,24 +262,24 @@ def Cotationlist_filter(request):
     colaborador = ''
     photo_colab = ''
 
+    
+
     for a in Employees:
         if colab == a.user:
             colaborador = a.emp_name
             photo_colab = a.photo
+            colab_id = a.id
             
     #----------------------
 
     return render(request, 'documentation/cotation-filter.html', {'Cotations':Cotations, 'DocumentStandards':DocumentStandards,
                                                                 'MyProjects':MyProjects,'Subjects':Subjects, 'total':total,
-                                                                'colaborador':colaborador, 'photo_colab':photo_colab,'sub':str(sub), 'proj':str(proj)})
+                                                                'colaborador':colaborador, 'photo_colab':photo_colab,'colab_id':colab_id, 'sub':str(sub), 'proj':str(proj)})
 
 @login_required
 def EditeCotation(request):
 
     GET = dict(request.GET)
-    print('\n\n')
-    print('>>>>>>>>>>',GET)
-    print('\n\n')
 
     proj = GET['proj'][0]
     sub = GET['sub'][0]
@@ -316,73 +319,13 @@ def EditeCotation(request):
 
 
 
-@login_required
-def EditeCotationAll(request):
-    GET = dict(request.GET)
-
-    print('\n\n')
-    print('>>>>>>>>>>',GET)
-    print('\n\n') 
-
-    proj = int(GET['proj'][0])
-    sub = int(GET['sub'][0])
-
-    if GET['id-form'][0] == '0':
-        trata_edit_cota_all(GET, sub, proj, request)
-
-    else:
-        trata_edit_cota_ind(GET, sub, proj, request)
-        #pass
-        #return redirect('edite-cota' + '/' + id)
-        
-
-    # Cotations = Cotation.objects.all()
-    # Employees = Employee.objects.all()
-    # #----------------------
-    # colab = request.user
-
-    # colaborador = ''
-    # photo_colab = ''
-
-    # for a in Employees:
-    #     if colab == a.user:
-    #         colaborador = a.emp_name
-    #         photo_colab = a.photo
-                
-    # #----------------------
-
-    #Cotations = get_object_or_404(Cotation, pk=id)
-    #form = CotationForm(instance=Cotations)
-
-    if (request.method == 'POST'):
-        #form = CotationForm(request.POST, instance=Cotations)
-        
-        #if (form.is_valid()):
-            #Cotations.cost_doc = 0
-            #Cotations.save()
-            #return redirect('http://127.0.0.1:8000/cotationFilter/?sub=2&proj=1') 'form': form, 
-            
-        #else:
-        return render(request, 'documentation/edite-cotation-all.html') 
-        #return render(request, 'documentation/edite-cotation-all.html', {'Cotations': Cotations, 'colaborador':colaborador, 'photo_colab':photo_colab}) 
-
-    else:
-        return render(request, 'documentation/edite-cotation-all.html')
-
-
-
 def UploadTable(request):
     GET = dict(request.GET)
     print('----------', GET)
 
     proj = int(GET['proj'][0])
     sub = int(GET['sub'][0])
-    status = GET['status'][0]
-
-    if status == 'true':
-        print('---------- OK')
-    else:
-        print('---------- Noooo')
+    #status = GET['status'][0]
 
     Uploads = Upload.objects.all()
     Cotations = Cotation.objects.all()
@@ -392,7 +335,7 @@ def UploadTable(request):
 
     #CODE.trata_edit_cota(GET, proj, sub)
 
-    return render(request, 'documentation/upload-table.html', {'Uploads':Uploads, 'proj':proj, 'sub':sub, 'status':status})
+    return render(request, 'documentation/upload-table.html', {'Uploads':Uploads, 'proj':proj, 'sub':sub})
 
 
 
@@ -407,9 +350,9 @@ def download_df(request):
     proj = int(GET['proj'][0])
     sub = int(GET['sub'][0])
     #status = GET['status'][0]
-    status = 'true'
+    #status = 'true'
 
-    print(status)
+    #print(status)
 
     Cotations = Cotation.objects.all()
     Cotations = Cotations.filter(proj_name__id=proj)
@@ -434,18 +377,15 @@ def download_df(request):
 
     os.system("F:\Visual_Studio\Project_Management\media\DF_COTATION.xlsx")
 
-
-    return render(request, 'documentation/upload-table.html', {'proj':proj, 'sub':sub, 'Cotations':Cotations, 'status':status})
+    return render(request, 'documentation/upload-table.html', {'proj':proj, 'sub':sub, 'Cotations':Cotations})
 
 
 
 def VisualizaDF(request):
     GET = dict(request.GET)
-    print('-----------', GET)
-    print('--------\n\n\n\n')
 
-    #sub = int(GET['sub'][0])
-    #proj = int(GET['proj'][0])
+    sub = int(GET['sub'][0])
+    proj = int(GET['proj'][0])
 
     #----------------------
     #Subjects = Subject.objects.all()
@@ -459,8 +399,8 @@ def VisualizaDF(request):
             print(int(df['ID'][a]), df['NOME_DO_PROJETO'][a])
             listagem.append([int(df['ID'][a]),df['NOME_DO_PROJETO'][a], df['DISCIPLINA'][a], df['DOCUMENTO_BASE'][a], df['NOME_DO_DOCUMENTO'][a], df['COD_DOC'][a], df['EXT_DOC'][a], df['TIPO_DE_FOLHA'][a], df['QT_FOLHA'][a], df['QT_HH'][a]])
 
-    Employees = Employee.objects.all()
     #----------------------
+    Employees = Employee.objects.all()
     colab = request.user
 
     colaborador = ''
@@ -473,7 +413,77 @@ def VisualizaDF(request):
             
     #----------------------
 
-    return render(request, 'documentation/visualiza-df.html', {'df':df,'colaborador':colaborador, 'photo_colab':photo_colab, 'listagem':listagem})
+    return render(request, 'documentation/visualiza-df.html', {'df':df,'colaborador':colaborador, 'photo_colab':photo_colab, 'listagem':listagem, 'proj':proj, 'sub':sub})
+
+
+
+def ajustestable(request):
+
+    GET = dict(request.GET)
+    print('-----------', GET)
+    print('--------\n\n\n\n')
+
+    sub = int(GET['sub'][0])
+    proj = int(GET['proj'][0])
+
+    df = pd.read_excel('media/DF_COTATION.xlsx', 'cota')
+
+    listagem = []
+    for a in df['ID'].index:
+        if a > 0:
+            listagem.append([int(df['ID'][a]),df['NOME_DO_PROJETO'][a], df['DISCIPLINA'][a], df['DOCUMENTO_BASE'][a], df['NOME_DO_DOCUMENTO'][a], df['COD_DOC'][a], df['EXT_DOC'][a], df['TIPO_DE_FOLHA'][a], df['QT_FOLHA'][a], df['QT_HH'][a]])
+
+    print(listagem)
+
+    for a in listagem:
+        print(a[0])
+
+
+        id = int(a[0])
+    
+        Cota = Cotation.objects.all()
+        Cotations = get_object_or_404(Cota, pk=id)
+
+        form_cota = CotationForm(instance=Cotations)
+        cota = form_cota.save(commit=False)
+        cota.doc_name = a[4]
+        cota.qt_page = int(a[8])
+        cota.qt_hh = int(a[9])
+        cota.save()
+
+        #doc_name, cod_doc_type,page_type,format_doc, qt_page, qt_hh
+
+    #----------------------
+    Employees = Employee.objects.all()
+    colab = request.user
+
+    colaborador = ''
+    photo_colab = ''
+
+    for a in Employees:
+        if colab == a.user:
+            colaborador = a.emp_name
+            photo_colab = a.photo
+            
+    #----------------------
+
+
+    return render(request, 'documentation/cotation-filter.html', {'df':df,'colaborador':colaborador, 'photo_colab':photo_colab, 'listagem':listagem, 'proj':proj, 'sub':sub})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -511,7 +521,9 @@ def EditeCotation(request):
         form = CotationForm(request.POST, instance=Cotations)
         
         if (form.is_valid()):
+            #if Cotations.cost_doc == None:
             Cotations.cost_doc = 0
+
             Cotations.save()
             return redirect(f'''http://127.0.0.1:8000/cotationFilter/?sub={sub}&proj={proj}''')
             
@@ -667,11 +679,11 @@ def Create_LD(request):
 def Calc_Cota(request):
 
     MyProjects = MyProject.objects.all().order_by('project_name')
-    DocumentStandards = DocumentStandard.objects.all().order_by('doc_type') 
-    Actions = Action.objects.all().order_by('-action_type')
-    StatusDocs = StatusDoc.objects.all().order_by('-doc_status')
+    DocumentStandards = DocumentStandard.objects.all()
+    Actions = Action.objects.all()
+    StatusDocs = StatusDoc.objects.all()
 
-    Employees = Employee.objects.all().order_by('-emp_name')
+    Employees = Employee.objects.all()
     #------------------     
     colab = request.user
     colaborador = ''

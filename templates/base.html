@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | DataTables</title>
+  <title>Aplication | Developement</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -207,7 +207,7 @@
           <img src="../media/{{photo_colab}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{colaborador}}</a>
+          <a href="{% url 'admin:index' %}documentation/employee/{{colab_id}}/change/" class="d-block" target="blank">{{colaborador}}</a>
           <!-- ../static/dist/img/user2-160x160.jpg -->
         </div>
       </div>
@@ -314,7 +314,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../charts/flot.html" class="nav-link">
+                <a href="{% url 'data-table' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Flot</p>
                 </a>
@@ -780,10 +780,14 @@
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Controle de Projetos</h1>
+          <div class="col-sm-8">
+            {% if proj != 0 %}
+              <h1>{{MyProjects.0.project_name}}</h1>
+            {% else %}
+              <h1>Controle de Projetos</h1>
+            {% endif %}
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Tables</li>
@@ -841,13 +845,16 @@
 <script src="{% static 'js/script.js' %}"></script>
 
 
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+
 <!-- Page specific script -->
 <script>
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      //"buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
@@ -855,11 +862,51 @@
       "ordering": true,
       "info": true,
       "autoWidth": false,
-      "responsive": true,
+      "responsive": false,
     });
   });
 </script>
 
+<script>
+    function limpar() {
+      console.log('entrou apagar')
+        $('#lista li').show();
+    }
+
+    function filtrar() {
+      console.log('entrou filtro')
+        var termo = $('#pesquisa').val().toUpperCase();
+        $('#lista li').each(function() { 
+           if($(this).html().toUpperCase().indexOf(termo) === -1) {
+               $(this).hide();
+           }
+        });
+    }
+</script>
+
+<script>
+  function CriaPDF() {
+    
+      var minhaTabela = document.getElementById('tabela-pdf').innerHTML;
+      var style = "<style>";
+      style = style + "table {width: 100%;font: 20px Calibri;}";
+      style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+      style = style + "padding: 2px 3px;text-align: center;}";
+      style = style + "</style>";
+      // CRIA UM OBJETO WINDOW
+      var win = window.open('', '', 'height=700,width=700');
+      win.document.write('<html><head>');
+      win.document.write('<title>Empregados</title>');   // <title> CABEÇALHO DO PDF.
+      win.document.write(style);                                   // INCLUI UM ESTILO NA TAB HEAD
+      win.document.write('</head>');
+      win.document.write('<body>');
+      win.document.write(`<h1>{{MyProjects.0.project_name}} </h1>`);
+      win.document.write(minhaTabela);                          // O CONTEUDO DA TABELA DENTRO DA TAG BODY
+      win.document.write('</body></html>');
+      win.document.close(); 	                                         // FECHA A JANELA
+      win.print();                                                            // IMPRIME O CONTEUDO
+  }
+</script>
 
 </body>
 </html>

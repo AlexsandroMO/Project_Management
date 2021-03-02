@@ -4,6 +4,7 @@
 {% block content %}
 
 <!-- Main Sidebar Container -->
+<!-- https://gist.github.com/natanaelsimoes/b41589980c0cfe41da3f7e173a1c8fe4 -->
 
   <!-- Main content -->
   <section class="content">
@@ -15,14 +16,16 @@
                   <div class="card-header">
                     <h3 class="card-title">Cotação de Projeto</h3>
                   </div>
+
                   <!-- /.card-header -->
                   <div class="card-body table-responsive p-0">
                     <form action="{% url 'upload-table' %}" method="GET">
-                     
+                    <P></P>
+                    <div id="tabela-pdf">
                     <table id="example1" class="table table-bordered table-striped dataTable dtr-inline">
                       <input name="proj" value="{{proj}}" hidden>
                       <input name="sub" value="{{sub}}" hidden>
-                      <input name="status" value="false" hidden>
+                      <!-- <input name="status" value="false" hidden> -->
                       <thead>
                         <tr>
                           <th id="col-id">
@@ -47,7 +50,7 @@
                       <tbody>
                         {% csrf_token %}
                         {% for cota in Cotations %}
-                        <tr>
+                        <tr id="lista">
                           <td> 
                             <div class="input-group-prepend">
                                 <input class="marcar" type="checkbox" name="id-form" value="{{cota.id}}">
@@ -63,10 +66,18 @@
                           <td>{{cota.qt_hh}}</td>
                           <td id="num-convert">R$ {{cota.cost_doc}}</td>
                         </tr>
-                        
                         {% endfor %}
                       </tbody>
+                      <tfoot>
+                        <tr>
+                          <th></th>
+                          <th>Custo Total</th>
+                          <th colspan="7"></th>
+                          <th>R$ {{total}}</th>
+                        </tr>
+                        </tfoot>
                     </table>
+                  </div>
                   </div>
                   <!-- /.card-body -->
                 </div>
@@ -76,7 +87,7 @@
 
               <div class="card card-default collapsed-card">
                 <div class="card-header">
-                  <h3 class="card-title">Criar LD do Projeto</h3>
+                  <h3 class="card-title">Editar Tabela</h3>
       
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -91,7 +102,8 @@
                   <div class="row">
                     <div class="col-md-6" data-select2-id="29">
                       <div class="form-group">
-                        <button type="submit" class="btn btn-info">Editar Tabela</button> <!--<a href="{% url 'create-LD' %}">Filtrar</a>-->
+                        <button type="submit" class="btn btn-info">Analisar Tabela</button> <!--<a href="{% url 'create-LD' %}">Filtrar</a>-->
+                        <input type="button" class="btn btn-outline-secondary" value="Criar PDF" id="btnImprimir" onclick="CriaPDF()" />
                       </div>
                     </div>
     
@@ -118,3 +130,5 @@
 
 
 {% endblock %}
+
+

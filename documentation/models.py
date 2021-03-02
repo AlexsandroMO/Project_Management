@@ -156,9 +156,9 @@ class Upload(models.Model): #Upload de arquivos
 
 
 class ProjectValue(models.Model): #Upload de arquivos
-    cost_by_hh = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
-    cost_by_doc = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
-    cost_by_A1 = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    cost_by_hh = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True, verbose_name='CUSTO HH')
+    cost_by_doc = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True,verbose_name='CUSTO FOLHA')
+    cost_by_A1 = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True,verbose_name='CUSTO A1 EQ')
 
     def __str__(self):
         return str(self.cost_by_hh)

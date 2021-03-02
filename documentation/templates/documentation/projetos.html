@@ -13,7 +13,7 @@
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h3 class="card-title">Responsive Hover Table</h3>
+                    <h3 class="card-title">Projetos em Andamento</h3>
     
                     <div class="card-tools">
                       <div class="input-group input-group-sm" style="width: 150px;">
@@ -54,7 +54,7 @@
                               <!-- </span> -->
                             </div>
                           </td> 
-                          <td class="field-proj_name nowrap"><a href="http://127.0.0.1:8000/index2/?proj={{proj.id}}">{{proj.project_name}}</a></td>
+                          <td class="field-proj_name nowrap"><a href="{% url 'admin:index' %}documentation/myproject/{{proj.id}}/change/">{{proj.project_name}}</a></td>
                           <td>{{proj.company}}</td>
                           <td>{{proj.comments}}</td>
                         </tr>

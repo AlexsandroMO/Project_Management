@@ -12,7 +12,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h2>Upload DOCs</h2><a href="{% url 'download-df' %}?proj={{proj}}&sub={{sub}}&status={{status}}"><button type="button" class="btn btn-success">Download Planilha de Carga</button></a>
+                  <h2>Upload DOCs</h2><a href="{% url 'download-df' %}?proj={{proj}}&sub={{sub}}&status={{status}}"><button type="button" class="btn btn-outline-warning">Download Planilha de Carga</button></a>
                 </div>
                 <br>
                 
@@ -20,8 +20,9 @@
                   
                   <!-- <form action="" method="POST" enctype="multipart/form-data"> -->
                     {% csrf_token %}
-                    <input type="file" name="arq"/>
-                    <a href="{% url 'visualiza-df' %}"><button type="button" class="btn btn-success">Enviar</button></a>
+                    <!-- <input type="file" name="arq"/> -->
+                    <a href="{% url 'visualiza-df' %}?proj={{proj}}&sub={{sub}}"><button type="button" class="btn btn-success">Analisar</button></a>
+                    <a href="{% url 'cotation-list-filter' %}?proj={{proj}}&sub={{sub}}"><button type="button" class="btn btn-secondary">Voltar</button></a>
                   <!-- </form> -->
                 </div> 
                   {% csrf_token %}
