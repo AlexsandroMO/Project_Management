@@ -55,6 +55,7 @@ class CotationAdmin(admin.ModelAdmin):
 admin.site.register(MyProject, MyProjectAdmin)
 admin.site.register(Subject, SubjectAdmin)
 admin.site.register(DocT, DocTAdmin)
+admin.site.register(DocumentList, DocumentListAdmin)
 admin.site.register(PageSheet, PageSheetAdmin)
 admin.site.register(Pageformat, PageformatAdmin)
 admin.site.register(Action)
