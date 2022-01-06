@@ -4,6 +4,7 @@ Django settings for Management project.
 
 from pathlib import Path
 import os
+#from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,9 +19,6 @@ SECRET_KEY = 'django-insecure-jys%e6q$#e0_*8byt0!9zw@ff82s75gc80%rr+d)p@*rhd^loi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -33,9 +31,11 @@ INSTALLED_APPS = [
     'proj',
     #'accounts',
     'crispy_forms',
+    #'corsheaders',
 ]
 
 MIDDLEWARE = [
+    #'**corsheaders.middleware.CorsMiddleware**',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -44,6 +44,30 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+'''
+ALLOWED_HOSTS = []
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+
+#CSRF_TRUSTED_ORIGINS = ['https://front.bluemix.net/']
+CSRF_TRUSTED_ORIGINS = ['bluemix.net']
+
+CORS_REPLACE_HTTPS_REFERER = True
+
+CSRF_COOKIE_DOMAIN = 'bluemix.net'
+
+CORS_ORIGIN_WHITELIST = (
+    'https://front.bluemix.net/',
+    'front.bluemix.net',
+    'bluemix.net',
+)
+'''
 
 ROOT_URLCONF = 'Management.urls'
 

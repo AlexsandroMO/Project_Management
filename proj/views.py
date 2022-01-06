@@ -8,15 +8,7 @@ from django.contrib import messages
 from datetime import datetime
 
 
-#@login_required
-def home(request):
-
-  #MyProjects = MyProject.objects.all().order_by('project_name')
-  #proj = 0
-
-  return render(request, 'proj/index.html')#, {'MyProjects': MyProjects, 'proj':proj})
-
-#@login_required
+@login_required
 def index(request):
 
   ''' MyProjects = MyProject.objects.all().order_by('-project_name')
