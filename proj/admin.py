@@ -40,8 +40,10 @@ class EmployeeAdmin(admin.ModelAdmin):
 
 
 class CotationAdmin(admin.ModelAdmin):
-    fields = ('proj_name', 'subject_name', 'doc_name_pattern','page_type','qt_page','qt_doc', 'qt_hh','cost_doc')
-    list_display = ('id','proj_name', 'subject_name', 'doc_name_pattern','page_type','qt_page','qt_doc', 'qt_hh','cost_doc') 
+    fields = ('proj_name', 'subject_name', 'doc_name_pattern','page_type','page_format','qt_page','qt_doc', 'qt_hh','cost_doc')
+    list_display = ('id','proj_name', 'subject_name', 'doc_name_pattern','page_type','page_format','qt_page','qt_doc', 'qt_hh','cost_doc') 
+
+
 
 
 

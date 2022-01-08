@@ -7,6 +7,45 @@ from datetime import datetime
 
 date_today = datetime.today()
 
+def read_sql_project(NAME): #Information Tables Read
+	conn = sqlite3.connect('db.sqlite3')
+	sql_datas = f"""
+				SELECT id FROM proj_myproject
+        WHERE project_name LIKE '%{NAME}%';
+	"""
+	read_db = pd.read_sql_query(sql_datas, conn)
+	conn.close()
+	
+	return read_db
+
+
+def insert_cotation(name_sub, code_sub):
+  conn = sqlite3.connect('db.sqlite3')
+  c = conn.cursor()
+
+  qsl_datas = f"""
+              INSERT INTO proj_cotations(proj_name, subject_name, doc_name_pattern, page_type, page_format, qt_page, qt_doc, qt_hh, cost_doc, created_at, update_at)
+              VALUES ('{name_sub}', '{code_sub}','{date_today}','{date_today}');
+              """
+  c.execute(qsl_datas)
+  conn.commit()
+  conn.close()
+
+
+df_cotation = pd.read_excel('media/TABELAS_PROJETO_CONTROLE_DE_PROJETO.xlsx','COTATION_DOC')
+
+for a in df_cotation.index:
+  print(df_cotation['PROJETO'].loc[a], df_cotation['DISCIPLINA'].loc[a], df_cotation['DOCUMENTS_NAME'].loc[a], df_cotation['TIPO_FOLHA'].loc[a], df_cotation['TIPO_FORMAT'].loc[a], df_cotation['QT_FOLHA'].loc[a],df_cotation['QT_DOC'].loc[a],df_cotation['QT_HH'].loc[a],df_cotation['CUSTO_DOC'].loc[a])
+  print('>>>> ', read_sql_project(df_cotation['PROJETO'].loc[a]))
+  #insert_sub(df_cotation['SUBJECTS_NAME'].loc[a], df_cotation['SUBJECTS_COD'].loc[a])
+
+
+#print(read_sql_project('Projeto Revitalização - Porto Novo'))
+
+
+
+
+'''
 def create_tables():
 
   def insert_sub(name_sub, code_sub):
@@ -73,7 +112,7 @@ def create_tables():
 create_tables()
 print('Feito!')
 
-
+'''
 
 
 

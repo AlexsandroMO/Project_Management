@@ -104,6 +104,7 @@ class Cotation(models.Model): #Lista de Acões DocT
     subject_name = models.ForeignKey(Subject, on_delete=models.CASCADE, verbose_name='DISCIPLINA')
     doc_name_pattern = models.ForeignKey(DocT, on_delete=models.CASCADE, verbose_name='DOCUMENTO BASE')
     page_type = models.ForeignKey(PageSheet, on_delete=models.CASCADE, verbose_name='TIPO PÁGINA')
+    page_format = models.ForeignKey(Pageformat, on_delete=models.CASCADE, verbose_name='FORMATO PÁGINA')
     qt_page = models.DecimalField(max_digits=4, decimal_places=0, blank=True, null=True, verbose_name='QT PÁGINA')
     qt_doc = models.DecimalField(max_digits=4, decimal_places=0, blank=True, null=True, verbose_name='QT DOC')
     qt_hh = models.DecimalField(max_digits=4, decimal_places=0, blank=True, null=True, verbose_name='QT HH')
