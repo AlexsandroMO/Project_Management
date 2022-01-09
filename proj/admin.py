@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import MyProject, Subject, DocT, DocumentList, PageSheet, Pageformat, Action, StatusDoc, Employee, Cotation, Pageformat
+from . models import MyProject, Subject, DocT, DocumentBase, DocumentListProject, PageSheet, Pageformat, Action, StatusDoc, Employee, Cotation, Pageformat
 
 
 class MyProjectAdmin(admin.ModelAdmin):
@@ -14,9 +14,13 @@ class DocTAdmin(admin.ModelAdmin):
     fields = ('name_doc',)
     list_display = ('id','name_doc', 'created_at','update_at')
 
-class DocumentListAdmin(admin.ModelAdmin):
+class DocumentBaseAdmin(admin.ModelAdmin):
     fields = ('document_name',)
     list_display = ('document_name','created_at','update_at')
+
+class DocumentListProjectAdmin(admin.ModelAdmin):
+    fields = ('proj_name', 'subject_name', 'doc_name_pattern','tipe_doc','name_doc','page_type','page_format')
+    list_display = ('id','proj_name', 'subject_name', 'doc_name_pattern','tipe_doc','name_doc','page_type','page_format','created_at','update_at') 
 
 class PageSheetAdmin(admin.ModelAdmin):
     fields = ('name_sheet',)
@@ -40,8 +44,8 @@ class EmployeeAdmin(admin.ModelAdmin):
 
 
 class CotationAdmin(admin.ModelAdmin):
-    fields = ('proj_name', 'subject_name', 'doc_name_pattern','page_type','page_format','qt_page','qt_doc', 'qt_hh','cost_doc')
-    list_display = ('id','proj_name', 'subject_name', 'doc_name_pattern','page_type','page_format','qt_page','qt_doc', 'qt_hh','cost_doc') 
+    fields = ('proj_name', 'subject_name', 'doc_name_pattern','page_type','qt_page','qt_doc', 'qt_hh','cost_doc')
+    list_display = ('id','proj_name', 'subject_name', 'doc_name_pattern','page_type','qt_page','qt_doc', 'qt_hh','cost_doc', 'created_at','update_at') 
 
 
 
@@ -57,7 +61,8 @@ class CotationAdmin(admin.ModelAdmin):
 admin.site.register(MyProject, MyProjectAdmin)
 admin.site.register(Subject, SubjectAdmin)
 admin.site.register(DocT, DocTAdmin)
-admin.site.register(DocumentList, DocumentListAdmin)
+admin.site.register(DocumentBase, DocumentBaseAdmin)
+admin.site.register(DocumentListProject, DocumentListProjectAdmin)
 admin.site.register(PageSheet, PageSheetAdmin)
 admin.site.register(Pageformat, PageformatAdmin)
 admin.site.register(Action)

@@ -4,10 +4,10 @@ from django.contrib.auth import get_user_model
 class MyProject(models.Model): #Títulos de projeto
 
     project_name = models.CharField(max_length=255, verbose_name='NOME DO PROJETO')
-    company = models.CharField(max_length=255)
-    pref_proj = models.CharField(max_length=30)
-    cod_proj = models.CharField(max_length=30)
-    comments = models.TextField()
+    company = models.CharField(max_length=255, verbose_name='NOME DA EMPRESA')
+    pref_proj = models.CharField(max_length=30, verbose_name='PREFÍXO DO PROJETO')
+    cod_proj = models.CharField(max_length=30, verbose_name='CÓDIGO DO PROJETO')
+    comments = models.TextField(verbose_name='COMENTÁRIOS')
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -35,7 +35,7 @@ class DocT(models.Model): #Tipo de Documento
     def __str__(self):
         return self.name_doc
 
-class DocumentList(models.Model):
+class DocumentBase(models.Model):
 
     document_name = models.CharField(max_length=255, verbose_name='NOME DOCUMENTO')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -98,13 +98,29 @@ class Employee(models.Model): #Lista de Funcionários
         return self.emp_name
 
 
+class DocumentListProject(models.Model): #Lista de Acões DocT
+    
+    proj_name = models.ForeignKey(MyProject, on_delete=models.CASCADE, verbose_name='PROJETO')
+    subject_name = models.ForeignKey(Subject, on_delete=models.CASCADE, verbose_name='DISCIPLINA')
+    doc_name_pattern = models.ForeignKey(DocumentBase, on_delete=models.CASCADE, verbose_name='DOCUMENTO BASE')
+    tipe_doc = models.ForeignKey(DocT, on_delete=models.CASCADE, verbose_name='TIPO DE DOCUMENTO')
+    name_doc = models.CharField(max_length=255, verbose_name='NOME DO DOCUMENTO')
+    page_type = models.ForeignKey(PageSheet, on_delete=models.CASCADE, verbose_name='TIPO PÁGINA')
+    page_format = models.ForeignKey(Pageformat, on_delete=models.CASCADE, verbose_name='FORMATO PÁGINA')
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+  
+    def __str__(self):
+        return str(self.doc_name_pattern)
+
+
 class Cotation(models.Model): #Lista de Acões DocT
     
     proj_name = models.ForeignKey(MyProject, on_delete=models.CASCADE, verbose_name='PROJETO')
     subject_name = models.ForeignKey(Subject, on_delete=models.CASCADE, verbose_name='DISCIPLINA')
-    doc_name_pattern = models.ForeignKey(DocT, on_delete=models.CASCADE, verbose_name='DOCUMENTO BASE')
+    doc_name_pattern = models.ForeignKey(DocumentBase, on_delete=models.CASCADE, verbose_name='DOCUMENTO BASE')
     page_type = models.ForeignKey(PageSheet, on_delete=models.CASCADE, verbose_name='TIPO PÁGINA')
-    page_format = models.ForeignKey(Pageformat, on_delete=models.CASCADE, verbose_name='FORMATO PÁGINA')
+    #page_format = models.ForeignKey(Pageformat, on_delete=models.CASCADE, verbose_name='FORMATO PÁGINA')
     qt_page = models.DecimalField(max_digits=4, decimal_places=0, blank=True, null=True, verbose_name='QT PÁGINA')
     qt_doc = models.DecimalField(max_digits=4, decimal_places=0, blank=True, null=True, verbose_name='QT DOC')
     qt_hh = models.DecimalField(max_digits=4, decimal_places=0, blank=True, null=True, verbose_name='QT HH')

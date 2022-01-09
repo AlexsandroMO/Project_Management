@@ -7,6 +7,7 @@ from datetime import datetime
 
 date_today = datetime.today()
 
+#----------------------------------------
 def read_sql_project(NAME): #Information Tables Read
 	conn = sqlite3.connect('db.sqlite3')
 	sql_datas = f"""
@@ -18,7 +19,42 @@ def read_sql_project(NAME): #Information Tables Read
 	
 	return read_db
 
+def read_sql_subject(NAME): #Information Tables Read
+	conn = sqlite3.connect('db.sqlite3')
+	sql_datas = f"""
+				SELECT id FROM proj_subject
+        WHERE subject_name LIKE '%{NAME}%';
+	"""
+	read_db = pd.read_sql_query(sql_datas, conn)
+	conn.close()
+	
+	return read_db
 
+def read_sql_documentlist(NAME): #Information Tables Read
+	conn = sqlite3.connect('db.sqlite3')
+	sql_datas = f"""
+				SELECT id FROM proj_documentlist
+        WHERE document_name LIKE '%{NAME}%';
+	"""
+	read_db = pd.read_sql_query(sql_datas, conn)
+	conn.close()
+	
+	return read_db
+
+
+def read_sql_pagesheet(NAME): #Information Tables Read
+	conn = sqlite3.connect('db.sqlite3')
+	sql_datas = f"""
+				SELECT id FROM proj_pagesheet
+        WHERE name_sheet LIKE '%{NAME}%';
+	"""
+	read_db = pd.read_sql_query(sql_datas, conn)
+	conn.close()
+	
+	return read_db
+
+
+#----------------------------------------
 def insert_cotation(name_sub, code_sub):
   conn = sqlite3.connect('db.sqlite3')
   c = conn.cursor()
@@ -35,8 +71,12 @@ def insert_cotation(name_sub, code_sub):
 df_cotation = pd.read_excel('media/TABELAS_PROJETO_CONTROLE_DE_PROJETO.xlsx','COTATION_DOC')
 
 for a in df_cotation.index:
-  print(df_cotation['PROJETO'].loc[a], df_cotation['DISCIPLINA'].loc[a], df_cotation['DOCUMENTS_NAME'].loc[a], df_cotation['TIPO_FOLHA'].loc[a], df_cotation['TIPO_FORMAT'].loc[a], df_cotation['QT_FOLHA'].loc[a],df_cotation['QT_DOC'].loc[a],df_cotation['QT_HH'].loc[a],df_cotation['CUSTO_DOC'].loc[a])
-  print('>>>> ', read_sql_project(df_cotation['PROJETO'].loc[a]))
+  print('++++++++++ : ',a,read_sql_project(df_cotation['PROJETO'].loc[a])['id'], read_sql_subject(df_cotation['DISCIPLINA'].loc[a])['id'], read_sql_documentlist(df_cotation['DOCUMENTS_NAME'].loc[a])['id'], read_sql_pagesheet(df_cotation['TIPO_FOLHA'].loc[a])['id'], df_cotation['QT_FOLHA'].loc[a],df_cotation['QT_DOC'].loc[a],df_cotation['QT_HH'].loc[a],df_cotation['CUSTO_DOC'].loc[a])
+  print('>>>> ', read_sql_project(df_cotation['PROJETO'].loc[a])['id'][0])
+  print('>>>> ', read_sql_subject(df_cotation['DISCIPLINA'].loc[a])['id'][0])
+  print('>>>> ', read_sql_documentlist(df_cotation['DOCUMENTS_NAME'].loc[a])['id'][0])
+  print('>>>> ', read_sql_pagesheet(df_cotation['TIPO_FOLHA'].loc[a])['id'][0])
+
   #insert_sub(df_cotation['SUBJECTS_NAME'].loc[a], df_cotation['SUBJECTS_COD'].loc[a])
 
 
