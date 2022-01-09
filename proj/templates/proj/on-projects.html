@@ -44,8 +44,9 @@
                 </thead>
                 <tbody>
                   {% for proj in MyProjects %}
+                  {% csrf_token %}
                   <tr class="odd">
-                    <td class="dtr-control sorting_1" tabindex="0"><a href="{% url 'cotation-list' %}{{proj.id}}">{{proj.project_name}}</a></td>
+                    <td class="dtr-control sorting_1" tabindex="0"><a href="{% url 'document-list' %}?{{proj.id}}">{{proj.project_name}}</a></td>
                     <td>{{proj.company}}</td>
                     <td>{{proj.pref_proj}}</td>
                     <td>{{proj.cod_proj}}</td>

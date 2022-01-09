@@ -18,50 +18,84 @@
           </ol>
         </div>
       </div>
-    </div><!-- /.container-fluid -->
-  </section>
 
-  <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Base de documentos de projeto</h3>
+
+    <div class="card card-info">
+      <div class="card-header">
+        <h3 class="card-title">Horizontal Form</h3>
+      </div>
+      <!-- /.card-header -->
+      <!-- form start -->
+      <!-- <form class="form-horizontal"> -->
+      <form action="{% url 'document-list' %}" method="POST">
+        {% csrf_token %}
+        <div class="card-body">
+
+         <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">Base de documentos de projeto</h3>
+                    </div>
+                    
+                    <select class="form-control" name="sub_id">
+                      <option>Escolha a Disciplina</option>
+                      {% for sub in Subjects %}
+                        <option value="{{sub.id}}">{{sub.subject_name}}</option>
+                      {% endfor %} 
+                    </select>
+                    
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                        <div class="row">
+                          <div class="col-sm-12 col-md-6"></div>
+                        <div class="col-sm-12 col-md-6"></div>
+                      </div
+                      ><div class="row">
+                        <div class="col-sm-12">
+                        <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
+                        <thead>
+                        <tr role="row">
+                          <th class="sorting sorting_asc">CHECK</th>
+                          <th class="sorting sorting_asc">NOME DO DOCUMENTO</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          {% for doc in DocumentBases %}
+                          <tr class="odd">
+                            <td class="dtr-control sorting_1" tabindex="0">
+                              <div class="form-check">
+                                <input type="checkbox" class="form-check-input" value="{{doc.id}}" name="check_id" id="exampleCheck1">
+                              </div>
+                            </td>
+                            <td class="dtr-control sorting_1" tabindex="0"><a href="{% url 'cotation-list' %}{{doc.id}}">{{doc.document_name}}</a></td>
+                          </tr>
+                          {% endfor %}  
+                      </tbody>
+                      </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
+                    </div>
+                    <!-- /.card-body -->
+
+                 
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-info">Sign in</button>
+                  <button type="submit" class="btn btn-default float-right">Cancel</button>
+                </div>
+                <!-- /.card-footer -->
+              </form>
             </div>
-            
-            <select class="form-control">
-              <option>Escolha o Projeto</option>
-              {% for proj in MyProjects %}
-                <option>{{proj.project_name}}</option>
-              {% endfor %} 
-            </select>
-            
-            <!-- /.card-header -->
-            <div class="card-body">
-              <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12"><table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
-                <thead>
-                <tr role="row">
-                  <th class="sorting sorting_asc">CHECK</th>
-                  <th class="sorting sorting_asc">NOME DO DOCUMENTO</th>
-                </tr>
-                </thead>
-                <tbody>
-                  {% for doc in DocumentBases %}
-                  <tr class="odd">
-                    <td class="dtr-control sorting_1" tabindex="0">
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      </div>
-                    </td>
-                    <td class="dtr-control sorting_1" tabindex="0"><a href="{% url 'cotation-list' %}{{doc.id}}">{{doc.document_name}}</a></td>
-                  </tr>
-                  {% endfor %}  
-              </tbody>
-              </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
-            </div>
-            <!-- /.card-body -->
+
+            <!-- <div class="card-footer">
+              <button type="submit" class="btn btn-info">Sign in</button>
+              <button type="submit" class="btn btn-default float-right">Cancel</button>
+            </div> -->
+
 
           </div>
           <!-- /.card -->
@@ -75,6 +109,7 @@
   <!-- /.content -->
 </div>
 
+<a href="{% url 'document-list' %}"><button type="submit" class="btn btn-default float-right">TESTE</button></a>
 
 {% endblock %}
 
