@@ -103,7 +103,7 @@ class DocumentListProject(models.Model): #Lista de Acões DocT
     proj_name = models.ForeignKey(MyProject, on_delete=models.CASCADE, verbose_name='PROJETO')
     subject_name = models.ForeignKey(Subject, on_delete=models.CASCADE, verbose_name='DISCIPLINA')
     doc_name_pattern = models.ForeignKey(DocumentBase, on_delete=models.CASCADE, verbose_name='DOCUMENTO BASE')
-    tipe_doc = models.ForeignKey(DocT, on_delete=models.CASCADE, verbose_name='TIPO DE DOCUMENTO')
+    type_doc = models.ForeignKey(DocT, on_delete=models.CASCADE, verbose_name='TIPO DE DOCUMENTO')
     name_doc = models.CharField(max_length=255, verbose_name='NOME DO DOCUMENTO')
     page_type = models.ForeignKey(PageSheet, on_delete=models.CASCADE, verbose_name='TIPO PÁGINA')
     page_format = models.ForeignKey(Pageformat, on_delete=models.CASCADE, verbose_name='FORMATO PÁGINA')

@@ -7,6 +7,41 @@ from datetime import datetime
 
 date_today = datetime.today()
 
+
+
+def create_list(sub, Subjects, proj_id, MyProjects, check_id, DocBase):
+  for a in check_id:
+    print('>>>>>>>>>>>>>>>>', sub[0], proj_id, a)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+
 #----------------------------------------
 def read_sql_project(NAME): #Information Tables Read
 	conn = sqlite3.connect('db.sqlite3')
@@ -76,7 +111,7 @@ for a in df_cotation.index:
   print('>>>> ', read_sql_subject(df_cotation['DISCIPLINA'].loc[a])['id'][0])
   print('>>>> ', read_sql_documentlist(df_cotation['DOCUMENTS_NAME'].loc[a])['id'][0])
   print('>>>> ', read_sql_pagesheet(df_cotation['TIPO_FOLHA'].loc[a])['id'][0])
-
+'''
   #insert_sub(df_cotation['SUBJECTS_NAME'].loc[a], df_cotation['SUBJECTS_COD'].loc[a])
 
 

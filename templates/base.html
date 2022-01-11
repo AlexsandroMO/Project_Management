@@ -203,6 +203,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
 
       <!-- Sidebar Menu -->
+      <input type ="hidden" name="id_proj" value="{{proj_id}}">
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
@@ -223,13 +224,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'base-doc' %}" class="nav-link">
+                <a href="{% url 'base-doc' %}?{{proj_id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Documents Base</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'cotation-list' %}" class="nav-link">
+                <a href="{% url 'cotation-list' %}?{{proj_id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cotations</p>
                 </a>

@@ -19,8 +19,8 @@ class DocumentBaseAdmin(admin.ModelAdmin):
     list_display = ('document_name','created_at','update_at')
 
 class DocumentListProjectAdmin(admin.ModelAdmin):
-    fields = ('proj_name', 'subject_name', 'doc_name_pattern','tipe_doc','name_doc','page_type','page_format')
-    list_display = ('id','proj_name', 'subject_name', 'doc_name_pattern','tipe_doc','name_doc','page_type','page_format','created_at','update_at') 
+    fields = ('proj_name', 'subject_name', 'doc_name_pattern','type_doc','name_doc','page_type','page_format')
+    list_display = ('id','proj_name', 'subject_name', 'doc_name_pattern','type_doc','name_doc','page_type','page_format','created_at','update_at') 
 
 class PageSheetAdmin(admin.ModelAdmin):
     fields = ('name_sheet',)

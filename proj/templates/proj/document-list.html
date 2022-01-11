@@ -31,25 +31,30 @@
               <h3 class="card-title">Projetos em andamento</h3>
             </div>
             <!-- /.card-header -->
+            <input type ="hidden" name="id_proj" value="{{proj_id}}">
             <div class="card-body">
               <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12"><table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
                 <thead>
                 <tr role="row">
                   <th class="sorting sorting_asc">NOME DO PROJETO</th>
                   <th class="sorting">NOME DA EMPRESA</th>
-                  <th class="sorting">PREFÍXO DO PROJETO</th>
-                  <th class="sorting">CÓDIGO DO PROJETO</th>
-                  <th class="sorting">COMENTÁRIOS</th>
+                  <th class="sorting">DOCUMENTO BASE</th>
+                  <th class="sorting">TIPO DE DOCUMENTO</th>
+                  <th class="sorting">NOME DO DOCUMENTO</th>
+                  <th class="sorting">TIPO PÁGINA</th>
+                  <th class="sorting">FORMATO DE PÁGINA</th>
                 </tr>
                 </thead>
                 <tbody>
-                  {% for proj in MyProjects %}
+                  {% for doc in ListDoc %}
                   <tr class="odd">
-                    <td class="dtr-control sorting_1" tabindex="0"><a href="#">{{proj.project_name}}</a></td>
-                    <td>{{proj.company}}</td>
-                    <td>{{proj.pref_proj}}</td>
-                    <td>{{proj.cod_proj}}</td>
-                    <td>{{proj.comments}}</td>
+                    <td>{{doc.proj_name}}</a></td>
+                    <td>{{doc.subject_name}}</td>
+                    <td>{{doc.doc_name_pattern}}</td>
+                    <td class="dtr-control sorting_1" tabindex="0"><a href="{% url 'admin:index' %}proj/documentlistproject/{{doc.id}}/change/">{{doc.type_doc}}</a></td>
+                    <td>{{doc.name_doc}}</td>
+                    <td>{{doc.page_type}}</td>
+                    <td>{{doc.page_format}}</td>
                   </tr>
                   {% endfor %}  
               </tbody>
