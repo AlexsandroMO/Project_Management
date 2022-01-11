@@ -9,6 +9,7 @@ urlpatterns = [
     path('index2/', views.index, name='index-2'),
     path('On_Projects/', views.OnProjects, name='on-prjects'),
     path('Document_List/', views.DocumentList, name='document-list'),
+    path('Document_List_Go/', views.DocumentListGo, name='document-list-go'),
     path('Base_Doc/', views.BaseDoc, name='base-doc'),
     path('Cotation_List/', views.CotationList, name='cotation-list'),
     #path('edite_LD/<int:id>', views.EditeLD, name='edite-ld'),

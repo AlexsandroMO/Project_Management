@@ -27,7 +27,7 @@
       <!-- /.card-header -->
       <!-- form start -->
       <!-- <form class="form-horizontal"> -->
-      <form action="{% url 'document-list' %}?22" method="POST">
+      <form action="{% url 'document-list-go' %}?{{proj_id}}" method="POST">
         {% csrf_token %}
         <div class="card-body">
 

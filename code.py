@@ -9,9 +9,9 @@ date_today = datetime.today()
 
 
 
-def create_list(sub, Subjects, proj_id, MyProjects, check_id, DocBase):
+def create_list(sub, proj_id, check_id):
   for a in check_id:
-    print('>>>>>>>>>>>>>>>>', sub[0], proj_id, a)
+    print('>>>>>>>>>>>>>>>>', proj_id, sub[0], a)
 
 
 
