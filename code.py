@@ -7,11 +7,38 @@ from datetime import datetime
 
 date_today = datetime.today()
 
+def insert_doc_list(proj_id, sub, code_doc):
+  conn = sqlite3.connect('db.sqlite3')
+  c = conn.cursor()
+
+  qsl_datas = f"""
+              INSERT INTO proj_documentlistproject(proj_name_id, subject_name_id, doc_name_pattern_id,type_doc_id,name_doc,page_type_id,page_format_id, created_at, update_at)
+              VALUES ({proj_id}, {sub}, {code_doc},'-',1,1,1,'{date_today}','{date_today}');
+              """
+  c.execute(qsl_datas)
+  conn.commit()
+  conn.close()
 
 
 def create_list(sub, proj_id, check_id):
   for a in check_id:
-    print('>>>>>>>>>>>>>>>>', proj_id, sub[0], a)
+    print('>>>>>>>>>>>>DDDD', proj_id, sub[0], a)
+    insert_doc_list(proj_id, sub[0], a)
+
+
+
+  '''  for a in MyProjects:
+    print('>>>>>>>>>>>AAAA', a.id)
+
+  for a in Subjects:
+    print('>>>>>>>>>>>BBBB', a)
+
+  for a in ListDoc:
+    print('>>>>>>>>>>>>CCCC', proj_id, sub[0], a.doc_name_pattern_id)
+'''
+  
+    #for b in ListDoc:
+      #print('>>>>>>>>>>>>CCCC', proj_id, sub[0], a)
 
 
 

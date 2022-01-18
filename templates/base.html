@@ -224,6 +224,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{% url 'document-list' %}?{{proj_id}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Lista de Documento</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{% url 'base-doc' %}?{{proj_id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Documents Base</p>
