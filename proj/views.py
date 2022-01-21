@@ -60,11 +60,11 @@ def DocumentListGo(request):
   DocBase = DocumentBase.objects.all()
 
   MyProjects = MyProject.objects.all()
-  Subjects = Subject.objects.filter(id=int(sub[0]))
+  Subjects = Subject.objects.all() #filter(id=int(sub[0]))
 
   ListDoc = DocumentListProject.objects.filter(proj_name_id=proj_id).filter(subject_name_id=int(sub[0]))
 
- # code.create_list(sub, proj_id, check_id)
+  code.create_list(sub, proj_id, check_id)
 
   return render(request, 'proj/document-list.html',{'ListDoc':ListDoc,'DocBase':DocBase,'MyProjects':MyProjects,'Subjects':Subjects,'proj_id':proj_id}) #, {'MyProjects': MyProjects,'proj':proj, 'Employees':Employees, 'colaborador':colaborador, 'photo_colab':photo_colab})
 

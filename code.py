@@ -13,7 +13,7 @@ def insert_doc_list(proj_id, sub, code_doc):
 
   qsl_datas = f"""
               INSERT INTO proj_documentlistproject(proj_name_id, subject_name_id, doc_name_pattern_id,type_doc_id,name_doc,page_type_id,page_format_id, created_at, update_at)
-              VALUES ({proj_id}, {sub}, {code_doc},'-',1,1,1,'{date_today}','{date_today}');
+              VALUES ({proj_id}, {sub}, {code_doc},1,'-',1,1,'{date_today}','{date_today}');
               """
   c.execute(qsl_datas)
   conn.commit()
